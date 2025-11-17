@@ -1,0 +1,212 @@
+\documentclass{article} % Document type 
+\usepackage[spanish]{babel} % Language typesetting 
+\usepackage[utf8]{inputenc} % Accented chars without commands
+\usepackage[T1]{fontenc} % Accented display corrected
+\selectlanguage{spanish} % Default lang, useful for for multi lang switching 
+\usepackage{amsmath} % Math 1/3
+\usepackage{amssymb} % Math 2/3
+\usepackage{stmaryrd} % Math 3/3
+\usepackage{tikz} % Crating graphics programmatically
+\usepackage{pgfplots} % Extends tikz for 2D and 3D plots for data and math f 
+\pgfplotsset{compat=1.18} % ---
+\usepackage{circuitikz} % Extends tikz for electrical circuits
+\usepackage[dvipsnames, svgnames]{xcolor} % Coloring
+\usepackage{soul} % Text highlighting 
+\setul{0.5ex}{0.3ex} % ---
+\setlength{\parindent}{15pt} % Controls indentantion for the first line of paragraphs 
+\setlength{\parskip}{0.8\baselineskip plus 0.2\baselineskip minus 0.1\baselineskip} % Vertical spacing between paragraphs 
+\usepackage{geometry} % Layout
+\geometry{margin=3cm} % --- 
+\usepackage{titlesec} % Global section centering
+\titleformat{\section} % --
+  {\normalfont\Large\bfseries\centering}{\thesection}{1em}{} % --
+\usepackage{changepage} % Special paragraph
+\newenvironment{x}[3]{
+  \begin{adjustwidth}{#1}{0cm}
+  \setlength{\parindent}{0pt}
+  #2\fontsize{#3}{1pt}\selectfont 
+}{
+  \end{adjustwidth}
+}
+
+\title{Derivación, Demostración, y Diferenciabilidad}
+\date{12-11-2025}
+\author{Velázquez Ramírez Carlos Raúl}
+
+\begin{document}
+\pagenumbering{gobble}
+  \maketitle
+  \newpage
+  \pagenumbering{roman}
+
+\section*{Derivación de funciones trigonométricas} 
+
+Tenemos que 
+
+\noindent 1) $\sin(\alpha+ \beta) = \sin(\alpha) \cos(\beta) + \sin(\beta) \cos(\alpha)$.\\ 
+2) $\sin(\alpha - \beta) = \sin(\alpha) \cos(\beta) - \sin(\beta) \cos(\alpha)$.
+
+De $1 + 2$ obtenemos que $\sin(\alpha + \beta) + \sin(\alpha - \beta) = 2 \sin(\alpha) \cos(\beta)$.
+
+Sean $A = \alpha + \beta$ y $B = \alpha - \beta$, 
+
+\[
+  \sin(A) + \sin(B) = 2 \sin(\frac{A + B}{2}) \cos(\frac{A - B}{2})
+\]
+
+De $1 - 2$ obtenemos que $\sin(\alpha + \beta) - \sin(\alpha - \beta) = 2 \sin(\alpha) \cos(\beta)$.
+
+\[
+  \sin(A) - \sin(B) = 2 \sin(\frac{A - B}{2}) \cos(\frac{A + B}{2})
+\]
+
+Demuestre que $f(x) = \sin(x)$ es diferenciable en $\mathbb{R}$ y calcule su derivada. 
+
+Demostración: Sean $x \neq x_0$ y $x, x_0 \in \mathbb{R}$, 
+
+\[
+  \frac{f(x) - f(x_0)}{x - x_0} = \frac{\sin(x) - \sin(x_0)}{x - x_0} = \frac{2 \sin(\frac{x - x_0}{2}) \cos(\frac{x + x_0}{2})}{x - x_0} = \frac{\sin(\frac{x - x_0}{2})}{\frac{x - x_0}{2}} \cdot \cos(\frac{x + x_0}{2})
+\]
+
+Así, 
+
+\[
+  \lim\limits_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0} = \lim\limits_{x \to x_0} \frac{\sin(\frac{x - x_0}{2})}{\frac{x - x_0}{2}} \cdot \cos(\frac{x + x_0}{2}) = (1) \cdot \cos(\frac{x + x_0}{2}) = \cos(x_0) \Rightarrow f'(x) = \cos(x_0)
+\]
+
+Así, $f$ es diferenciable en $\mathbb{R}$ y $f'(x) = \cos(x)$.
+
+\section*{Derivación de $n$ funciones} 
+
+\textit{Proposición:} Sean $f, g: ] \alpha, \beta [ \to \mathbb{R}$ diferenciable en $x_0 \in ] \alpha, \beta [$. Entonces, 
+
+\noindent 1) $f + g$ es diferenciable en $x_0$ y $(f + g)'(x_0) = f'(x_0) + g'(x_0)$.\\
+2) $(fg)'$ es diferenciable y $(fg)'(x_0) = f'(x_0) g(x_0) + f(x_0) g'(x_0)$. \\
+3) Si $g(x_0) \neq 0$, entonces $\exists ] \alpha, \beta [ \subset ] \alpha, \beta [$ con $x_0 \in ] \alpha, \beta [$.
+
+La función $\frac{1}{g}$, definida, al menos en $] \alpha, \beta[$, es diferenciable en $x_0$ y, además, 
+
+\[
+  (\frac{1}{g}')(x_0) = \frac{-g'(x_0)}{g^2(x_0)}
+\]
+
+\noindent 4) Si $g(x_0) \neq 0$, $\frac{f}{g}$ es diferenciable en $x_0$ y además, 
+
+\[
+  (\frac{f}{g})'(x_0) = \frac{g(x_0) f'(x_0) - f(x_0) g'(x_0)}{g^2(x_0)}
+\]
+
+Demostración: 
+
+1) Tenemos que para $x \neq x_0$, 
+
+\[
+  \frac{(f + g)(x) - (f + g)(x_0)}{x - x_0} = \frac{(f(x) - g(x)) + (f(x_0) - g(x_0))}{x - x_0} = \frac{f(x) - f(x_0)}{x - x_0} + \frac{g(x) - g(x_0)}{x - x_0} 
+\]
+Entonces, 
+
+\[
+  \lim\limits_{x \to x_0} \frac{(f + g)(x) - (f + g)(x_0)}{x - x_0} = \lim\limits_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0} = f'(x_0) + g'(x_0)
+\]
+
+2) Sea $x \neq x_0$,
+
+\[
+  \lim\limits_{x \to x_0} \frac{(fg)(x) - (fg)(x_0)}{x - x_0} = \lim\limits_{x \to x_0} g(x) \cdot \lim\limits_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0} + \lim\limits_{x \to x_0} f(x_0) \cdot \lim\limits_{x \to x_0} \frac{g(x) - g(x_0)}{x - x_0}
+\]
+
+\[
+  = g(x_0) \cdot f'(x_0) + f(x_0) \cdot g'(x_0)
+\]
+
+\section*{Diferenciabilidad} 
+
+\textit{Teorema:} La continuidad es una condición necesaria para la diferenciabilidad.
+
+\[
+  p \to q
+\]
+
+\begin{center}
+  $p$ es condición suficiente para $q$ 
+
+  $q$ es condición necesaria para $p$
+
+  $p$: $f$ es diferenciable. 
+
+  $q$: $f$ es continua.
+
+Que $f$ sea continua es condición necesaria más no suficiente para ser diferenciable.
+\end{center}
+
+\textbf{Exampli gratia:} En el caso $f(x) = |x|$, $f'(0)$ no existe.
+
+\[
+  \lim\limits){x \to 0} \frac{f(x) - f(0)}{x - 0}
+\]
+
+Con límites laterales: 
+
+\[
+  \lim\limits_{x \to 0^-} \frac{-x}{x} = -1
+\]
+
+\[
+  \lim\limits_{x \to 0^+} \frac{x}{x} = 1
+\]
+
+\[
+  \lim\limits_{x \to 0^+} f(x) \neq \lim\limits_{x \to 0^-} f(x)
+\]
+
+$f$ es continua en $\mathbb{R}$ pero no es derivable en $x = 0$. 
+
+Sea $f: ] \alpha, \beta [ \to \mathbb{R}$ diferenciable en $x_0 \in ] \alpha, \beta [$, entonces $f$ es continua en $x_0$.
+
+Demostración: 
+
+Suponemos que $\lim\limits_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0}$ existe. 
+
+Debemos mostrar qie $\lim\limits_{x \to x_0} f(x) = f(x_0)$.
+
+Para $x \neq x_0$, 
+
+\[
+f(x) - f(x_0) = (f(x) - f(x_0)) \frac{x - x_0}{x - x_0} = \frac{f(x) - f(x_0)}{x - x_0} (x - x_0)
+\]
+
+Entonces
+
+\[
+  \lim\limits_{x \to x_0} [f(x) - f(x_0)] = \lim\limits_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0} \cdot \lim\limits_{x \to x_0} (x - x_0) = f'(x_0) \cdot 0 = 0
+\]
+
+\[
+  \Rightarrow \lim\limits_{x \to x_0} [f(x) - f(x_0)] = \lim\limits_{x \to x_0} f(x) - \lim\limits_{x \to x_0} = 0
+\]
+
+\[
+  \Rightarrow \lim\limits_{x \to x_0} f(x) = f(x_0) \textit{, Q.E.D}
+\]
+
+\textit{Obs.:} 
+
+\[
+  (f_1 f_2)' = f_1 f_2' + f_1' f_2
+\]
+
+\[
+  (f_1 f_2 f_3)' = (f_1 (f_2 f_3))' = f_1 (f_2 f_3)' + f_1' f_2 f_3 = f_1 (f_2 f_3' + f_2' f_3) + f_1' f_2 f_3 = f_1 f_2 f_3' + f_1 f_2' f_3 + f_1' f_2 f_3 
+\]
+
+En general: 
+
+\[
+  (f_1 f_2 \dots f_n)' = \sum_{i = 1}^{n} f_1 f_2 \dots f_{i -1} f_i' f_{i + 1} \dots f_n
+\]
+
+
+Demostrar por inducción sobre $n \in \mathbb{N}$ y después programarla.
+
+\end{document}
+

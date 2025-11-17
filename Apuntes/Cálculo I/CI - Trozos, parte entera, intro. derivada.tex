@@ -1,0 +1,491 @@
+\documentclass{article} % Document type 
+\usepackage[spanish]{babel} % Language typesetting 
+\usepackage[utf8]{inputenc} % Accented chars without commands
+\usepackage[T1]{fontenc} % Accented display corrected
+\selectlanguage{spanish} % Default lang, useful for for multi lang switching 
+\usepackage{amsmath} % Math 1/3
+\usepackage{amssymb} % Math 2/3
+\usepackage{stmaryrd} % Math 3/3
+\usepackage{tikz} % Crating graphics programmatically
+\usepackage{pgfplots} % Extends tikz for 2D and 3D plots for data and math f 
+\pgfplotsset{compat=1.18} % ---
+\usepackage{circuitikz} % Extends tikz for electrical circuits
+\usepackage[dvipsnames, svgnames]{xcolor} % Coloring
+\usepackage{soul} % Text highlighting 
+\setul{0.5ex}{0.3ex} % ---
+\setlength{\parindent}{15pt} % Controls indentantion for the first line of paragraphs 
+\setlength{\parskip}{0.8\baselineskip plus 0.2\baselineskip minus 0.1\baselineskip} % Vertical spacing between paragraphs 
+\usepackage{geometry} % Layout
+\geometry{margin=3cm} % --- 
+\usepackage{titlesec} % Global section centering
+\titleformat{\section} % --
+  {\normalfont\Large\bfseries\centering}{\thesection}{1em}{} % --
+\usepackage{titlesec} % Global subsection centering
+\titleformat{\subsection} % --
+  {\normalfont\large\bfseries\centering}{\thesection}{1em}{} % --
+
+\title{Funciones a trozos, función parte entera e introdcción intuitiva a la derivada}
+\date{31-10-2025}
+\author{Velázquez Ramírez Carlos Raúl}
+
+\begin{document}
+\pagenumbering{gobble}
+  \maketitle
+  \newpage
+  \pagenumbering{roman}
+
+\section*{Función a trozos}
+
+\textbf{Exampli gratia:} 
+
+1) 
+
+\[\text{Sea: $f(x)$} 
+  \begin{cases}
+    x & \text{, si } 0 \leq x < 1\\ 
+    3x - 2 & \text{, si } 1 \leq x \leq 2
+  \end{cases}
+\]
+
+Purebe que $\lim\limits_{x \to 1} f(x)$ existe mediante la definción $\epsilon-\delta$.
+
+Proponemos $\lim\limits_{x \to 1} f(x) = 1$
+
+Caso 1: Sea $0 <= x < 1$ y sea $\epsilon > 0$. 
+
+Si elegimos $\delta_1 = \epsilon$
+
+Suponemos que $0 < |x - 1| < \delta$. 
+
+Verificamos que $|f(x) - L| = |x - 1| < \delta_1 = \epsilon$.
+
+Caso 2: Sea $1 <= x <= 2$ y $\epsilon > 0$. 
+
+Si elegimos $\delta_2 = \frac{\epsilon}{3}$.
+
+Suponemos $0 < |x - 1| < \delta_2$. 
+
+Verificamos que $|f(x) - L| = |3x - 2 - 1| = |3x - 3| = 3 |x - 1| < 3 \delta_2 = 3 (\frac{\epsilon}{3}) = \epsilon$.
+
+Por tanto, 
+
+\[
+  \delta = min \{\delta_1, \delta_2\}
+\]
+
+\[
+  = min \{\epsilon, \frac{\epsilon}{3}\} = \frac{\epsilon}{3}
+\]
+
+Siempre se ha de tomar la $\epsilon$ más pequeña. Solo puede existir una, por definción.
+
+2) 
+
+\[\text{Sea: $f(x)$} 
+  \begin{cases}
+    2x + A & \text{, si } x < 1\\
+    x & \text{, si } 1 \leq x \leq 5\\
+    x^2 + B & \text{, si } 5 < x
+  \end{cases}
+\]
+
+Veamos la continuidad en $x = 1$. 
+
+Por un lado, $f(1) = 1$ y $\lim\limits_{x \to 1} f(x)$. 
+
+Se calcula con límites laterakes: 
+
+\[
+  \lim\limits_{x \to 1^-} f(x) = \lim\limits_{x \to 1} (2x + A) = 2 + A \text{, donde $x < 1$}
+\]
+
+\[
+  \lim\limits_{x \to 1^+} f(x) = \lim\limits_{x \to 1} x = 1 \text{, donde $x > 1$}
+\]
+
+Entonces, para que $\lim\limits_{x \to 1} f(x)$ existe, debe suceder: 
+
+\[
+  2 + A = 1 \Rightarrow A = -1
+\]
+
+Así, $f (1) = \lim\limits_{x \to 1} f(x) = 1$, por tanto $f$ es continua en $x = 1$.
+
+Veamos la continuidad de $f$ en $x = 5$. 
+
+Notemos que $f(5) = 5$. 
+
+Para hallar $\lim\limits_{x \to 5} f(x)$, debemos estudiar límites laterales: 
+
+\[
+  \lim\limits_{x \to 5^-} f(x) = \lim\limits_{x \to 5^-} x = 5 \text{, donde $x < 5$}
+\]
+
+\[
+  \lim\limits_{x \to 5^+} f(x) = \lim\limits_{x \to 5^+}  (x^2 + B) = 25 + B \text{, donde $x > 5$}
+\]
+
+Para que exista $\lim\limits_{x \to 5} f(x)$, los laterales deben coincidir.
+
+\[
+  25 + B = 5 \Rightarrow B = -20
+\]
+
+Así $f(5) = \lim\limits_{x \to 5} f(x) = 5$ y, por tanto, $f$ es continua en $x = 5$.
+
+Como $f$ se define a trozos mediante polinomios, $f$ es continua en el resto del dominio.
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}
+    [
+      axis lines = middle,
+      xlabel = $x$,
+      ylabel = $y$,
+      xmax = 15,
+      xmin = -3,
+      ymax = 50,
+      ymin = -5,
+    ]
+    \addplot
+      [
+        domain=-3:1,
+        samples=150,
+        color=blue,
+      ] 
+    {2*x-1};
+  \addlegendentry{$2x - 1$}
+    \addplot
+      [
+        domain=1:5,
+        samples=150,
+        color=green,
+      ] 
+    {x};
+  \addlegendentry{$x$}
+    \addplot
+      [
+        domain=5:10,
+        samples=150,
+        color=red,
+      ] 
+    {x^2-20};
+  \addlegendentry{$x^2 - 20$}
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+\[\text{Sea: $f(x)$} 
+  \begin{cases}
+    2x - 1 & \text{, si } x < 1\\
+    x & \text{, si } 1 \leq x \leq 5\\
+    x^2 - 20 & \text{, si } 5 < x
+  \end{cases}
+\]
+
+\section*{Función parte entera}
+
+\subsection*{Función techo}
+
+\[
+E \, : \, \mathbb{R} \to \mathbb{Z}
+\]
+\[
+  x \mapsto y = E(x)
+\]
+
+\[
+techo \, : \, \mathbb{R} \to \mathbb{Z}
+\]
+\[
+  techo(x) = \lceil x \rceil := min \{ K \in \mathbb{Z} \, | \, x \leq K \}
+\]
+
+\[\textbf{E.g.}
+  \begin{cases}
+    \text{Si $x = 0$} & \lceil 0 \rceil = 0\\
+    \text{Si $x = n, \, n \in \mathbb{Z}$} & \lceil n \rceil = n\\
+    \text{Si $x = 0.9$} & \lceil 0 \rceil = 1\\
+    \text{Si $x = 1.4$} & \lceil 0 \rceil = 2\\
+    \text{Si $x = 2$} & \lceil 0 \rceil = 2\\
+    \text{Si $x = -3$} & \lceil 0 \rceil = -3
+  \end{cases}
+\]
+
+\subsection*{Función suelo}
+
+\[
+  suelo \, : \, \mathbb{R} \to \mathbb{Z} 
+\]
+\[
+suelo(x) = \lfloor x \rfloor := max \{ k \in \mathbb{Z} \, | \, k \leq x \}
+\]
+
+\[\textbf{E.g.}
+  \begin{cases}
+    \text{Si $x = 0$} & \lceil 0 \rceil = 0\\
+    \text{Si $x = n, \, n \in \mathbb{Z}$} & \lceil n \rceil = n\\
+    \text{Si $x = 0.9$} & \lceil 0 \rceil = 0\\
+    \text{Si $x = 1.4$} & \lceil 0 \rceil = 1\\
+    \text{Si $x = 2$} & \lceil 0 \rceil = 2\\
+    \text{Si $x = -3$} & \lceil 0 \rceil = -3
+  \end{cases}
+\]
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}
+    [
+      axis lines = middle,
+      xlabel = $x$,
+      ylabel = $y$,
+      xmax = 5,
+      xmin = -5,
+      ymax = 5,
+      ymin = -5,
+    ]
+    \addplot
+      [
+        domain=-5:5,
+        samples=150,
+        color=blue,
+      ] 
+    {floor(x)};
+  \addlegendentry{$\lfloor x \rfloor$}
+    \addplot
+      [
+        domain=-5:5,
+        samples=150,
+        color=red,
+      ] 
+    {ceil(x)};
+  \addlegendentry{$\lceil x \rceil$}
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+\section*{La derivada} 
+
+\textit{Def.} Sean $I$ un intervalo en $\mathbb{R}$ y $f \, : \, I \to \mathbb{R}$. Si $x_0 \in I$, definimos la derivadad de $f$ en $x_0$ como 
+
+\[
+  f'(x_0) = \lim\limits_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0}
+\]
+
+, siempre que el límite exista.
+
+Si el límite existe, se dice que $f$ es derivable o diferenciable en el punto $x = x_0$.
+
+\textit{Motivación:} Encontrar la pendiente de una recta tangente a la gráfica de una función en un punto. 
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}
+    [
+      axis lines = left,
+      xlabel = $x$,
+      ylabel = $y$,
+      xmax = 10,
+      xmin = 0,
+      ymax = 50,
+      ymin = 0,
+      xtick = \empty,
+      ytick = \empty,
+      extra x ticks={4, 6},
+      extra x tick labels={\small$x$, \small$x + h$},
+      extra x tick style={tick label style={below, yshift = -2pt}},
+      extra y ticks={16, 36},
+      extra y tick labels={\small$f(x)$, \small$f(x + h)$},
+      extra y tick style={tick label style={left, yshift = -2pt}},
+    ]
+    \addplot
+      [
+        domain=0:9,
+        samples=100,
+        color=purple,
+        dashed,
+      ] 
+    {10*x - 24};
+    \addlegendentry{$\sec$}
+    \addplot
+      [
+        domain=0:9,
+        samples=100,
+        color=blue,
+      ] 
+    {x^2};
+    \addlegendentry{$x^2$}
+    \addplot
+      [
+       color=black,
+       only marks,
+       mark=*,
+       mark size=2pt,
+       forget plot,
+      ]
+    coordinates {(5,25)};
+    \addlegendentry{$B$}
+    \addplot
+      [
+       color=black,
+       only marks,
+       mark=*,
+       mark size=2pt,
+       forget plot,
+      ]
+    coordinates {(6,36)};
+    \addplot
+      [
+       color=black,
+       only marks,
+       mark=*,
+       mark size=2pt,
+       forget plot,
+      ]
+    coordinates {(4,16)};
+  \addlegendentry{$A$}
+  \addplot
+    [
+      domain = -10:10,
+      samples = 100,
+      color = red,
+      line width = 1pt,
+      dashed,
+    ]
+    coordinates {(6,0)(6,36)};
+  \addplot
+    [
+      domain = -10:10,
+      samples = 100,
+      color = blue,
+      line width = 1pt,
+      dashed,
+    ]
+    coordinates {(5,0)(5,25)};
+  \addplot
+    [
+      domain=-0:5,
+      samples=100,
+      color=blue,
+      line width = 1pt,
+      dashed,
+    ] 
+  {25};
+  \addlegendentry{$S$}
+  \addplot
+    [
+      domain = -10:10,
+      samples = 100,
+      color = green,
+      line width = 1pt,
+      dashed,
+    ]
+    coordinates {(4,0)(4,16)};
+  \addplot
+    [
+      domain=-0:4,
+      samples=100,
+      color= green,
+      line width = 1pt,
+      dashed,
+    ] 
+  {16};
+  \addplot
+    [
+      domain=-0:6,
+      samples=100,
+      color=red,
+      line width = 1pt,
+      dashed,
+    ] 
+  {36};
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+\[
+  A(x, f(x))
+\]
+\[
+  B(x + h, f(x + h))
+\]
+\[
+  m_{\sec} = \frac{f(x + h) - f(x)}{x + h - x} =  \frac{f(x + h) - f(x)}{h}
+\]
+
+Movemos el punto $B$ sobre la curva para que se acerque al punto $A$. 
+
+\[
+  B \to A \, : \, m_{\tan} = \lim\limits_{h \to 0} m_{\sec} = \lim\limits_{h \to 0} \frac{f(x + h) - f(x)}{h} = f'(x)
+\]
+
+\textbf{Exampli gratia:} Calcule la pendiente de la recta tangente a la gráfica  de $y = x^2$ en el punto de la abscisa $x = 5$.
+
+Sea 
+
+\[
+  f'(x) = \lim\limits_{h \to 0} \frac{f(x + h) - f(x)}{h} = \lim\limits_{h \to 0} \frac{(x + h)^2 - x^2}{h} = \lim\limits_{h \to 0} \frac{x^2 + 2xh + h^2 - x^2}{h} = \lim\limits_{h \to 0} \frac{h (2x + h)}{h}
+\]
+
+\[
+  = \lim\limits_{h \to 0} (2x + h) = 2x \Rightarrow f'(x) = 2x \, \forall x \in Dom_f
+\]
+
+\[
+  f'(5) = 10
+\]
+
+Encontremos la ecuación de la recta tangente con $m = 10$ y $(5, 25)$. 
+
+\[
+  y - y_1 = m(x - x_1)
+\]
+\[
+  y - 25 = 10(x - 5)
+\]
+\[
+  y = 10x - 25
+\]
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}
+    [
+      axis lines = middle,
+      xlabel = $x$,
+      ylabel = $y$,
+      xmax = 13,
+      xmin = -2,
+      ymax = 50,
+      ymin = -3,
+    ]
+    \addplot
+      [
+        domain=-2:13,
+        samples=150,
+        color=blue,
+      ] 
+    {x^2};
+  \addlegendentry{$x^2$}
+    \addplot
+      [
+        domain=-2:13,
+        samples=150,
+        color=red,
+      ] 
+    {10*x-25};
+  \addlegendentry{$10x - 25$}
+    \addplot
+      [
+       color=black,
+       only marks,
+       mark=*,
+       mark size=2pt,
+       forget plot,
+      ]
+    coordinates {(5,25)};
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+\end{document}

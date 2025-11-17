@@ -1,0 +1,298 @@
+\documentclass{article} % Document type 
+\usepackage[spanish]{babel} % Language typesetting 
+\usepackage[utf8]{inputenc} % Accented chars without commands
+\usepackage[T1]{fontenc} % Accented display corrected
+\selectlanguage{spanish} % Default lang, useful for for multi lang switching 
+\usepackage{amsmath} % Math 1/3
+\usepackage{amssymb} % Math 2/3
+\usepackage{stmaryrd} % Math 3/3
+\usepackage{tikz} % Crating graphics programmatically
+\usepackage{pgfplots} % Extends tikz for 2D and 3D plots for data and math f 
+\pgfplotsset{compat=1.18} % ---
+\usepackage{circuitikz} % Extends tikz for electrical circuits
+\usepackage[dvipsnames, svgnames]{xcolor} % Coloring
+\usepackage{soul} % Text highlighting 
+\setul{0.5ex}{0.3ex} % ---
+\setlength{\parindent}{15pt} % Controls indentantion for the first line of paragraphs 
+\setlength{\parskip}{0.8\baselineskip plus 0.2\baselineskip minus 0.1\baselineskip} % Vertical spacing between paragraphs 
+\usepackage{geometry} % Layout
+\geometry{margin=3cm} % --- 
+\usepackage{titlesec} % Global section centering
+\titleformat{\section} % --
+  {\normalfont\Large\bfseries\centering}{\thesection}{1em}{} % --
+
+\title{Límites trigonométricos}
+\date{20-10-2025}
+\author{Velázquez Ramírez Carlos Raúl}
+
+\begin{document}
+\pagenumbering{gobble}
+  \maketitle
+  \newpage
+  \pagenumbering{roman}
+
+\section*{Límites trigonométricos y tendencia a 0}
+
+Los siguientes 3 casos, y sus extrapolaciones, poseen limites iguales a 1.
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}
+    [
+      axis lines = middle,
+      xlabel = $x$,
+      ylabel = $y$,
+      xmax = 25,
+      xmin = -25,
+      ymax = 1.25,
+      ymin = -0.5,
+    ]
+    \addplot
+      [
+        domain=-20*pi:20*pi,
+        samples=350,
+        color=blue,
+      ] 
+    {(sin(deg(x)))/x};
+  \addlegendentry{$\frac{\sin(x)}{x}$}
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+\[
+  \lim\limits_{x \to 0}\frac{\sin(x)}{x}=1
+\]
+
+\[
+  \lim\limits_{x \to 0}\frac{x}{\sin(x)}=1
+\]
+
+\[
+  \lim\limits_{x \to 0}\frac{\sin(kx)}{x}=1
+\]
+
+Puesto que el límite de $\frac{\sin(x)}{x}$ y demás son equivalentes a $1$, son útiles para despejar o reducir cietas expresiones trigonométricas más complejas, e.g.,
+
+\[
+  \lim\limits_{x \to 0}\frac{\cos(x)-1}{x}=\lim\limits_{x \to 0}\frac{\cos(x)-1}{x}\cdot\frac{\cos(x)+1}{\cos(x)+1}
+\]
+
+\[
+  =\lim\limits_{x \to 0}\frac{\cos^2(x)-1}{x(\cos(x)+1)}=\lim\limits_{x \to 0}\frac{-\sin^2(x)}{x(\cos(x)+1)}=\lim\limits_{x \to 0}\frac{\sin(x)}{x}\cdot\frac{-\sin(x)}{\cos(x)+1}
+\]
+
+\[
+  =\lim\limits_{x \to 0}\frac{\sin(x)}{x}\cdot\lim\limits_{x \to 0}\frac{-\sin(x)}{\cos(x)+1}=1\cdot0=0  
+\]
+
+\[
+  Dom_y=\mathbb{R}\setminus\{0\}
+\]
+
+Otro método para atacar límites de funciones trigonométricas es multiplicando por $1$ expresado como el cociente del ángulo trigonométrico respectivo al divisor o dividendo, e.g.,
+\[
+  \lim\limits_{x \to 0}\frac{2x+5\sin(6x)}{4x+9\sin(3x)}=\frac{0}{0}, \text{ indeterminación}
+\]
+
+\[
+  \lim\limits_{x \to 0}\frac{\frac{6x}{6x}(2x+5\sin(6x))}{\frac{3x}{3x}(4x+9\sin(3x))}=\lim\limits_{x \to 0}\frac{2x+\frac{3x\sin(6x)}{6x}}{4x+\frac{27x\sin(3x)}{3x}}
+\]
+
+\[
+  =\lim\limits_{x \to 0}\frac{2x+30x\cdot\frac{\sin(6x)}{6x}}{4x+27x\cdot\frac{\sin(3x)}{3x}}=\lim\limits_{x \to 0}\frac{x(2+30\frac{\sin(6x)}{6x})}{x(4+27\frac{\sin(3x)}{3x})}=\lim\limits_{x \to 0}\frac{2+30\frac{\sin(6x)}{6x}}{4+27\frac{\sin(3x)}{3x}}
+\]
+
+\[
+  =\frac{\lim\limits_{x \to 0}2+30\lim\limits_{x \to 0}\frac{\sin(6x)}{6x}}{\lim\limits_{x \to 0}4+27\lim\limits_{x \to 0}\frac{\sin(3x)}{3x}}=\frac{2+30\cdot1}{4+27\cdot1}=\frac{32}{31}
+\]
+
+\[
+  Dom_y=\mathbb{R}\setminus\{0\}
+\]
+
+Visualmente, en una forma simple, tenemos que, 
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}
+    [
+      axis lines = middle,
+      xlabel = $x$,
+      ylabel = $y$,
+      xmax = 3,
+      xmin = -3,
+      ymax = 3,
+      ymin = -3,
+      width=10cm,
+      height=10cm
+    ]
+    \addplot
+      [
+        domain=-5*pi:5*pi,
+        samples=1500,
+        color=blue,
+      ] 
+    {sin(deg(5*x))/sin(deg(9*x))};
+  \addlegendentry{$\frac{\sin(5x)}{\sin(9x)}$}
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+\[
+g(x)=\frac{\sin(5x)}{\sin(9x)}
+\]
+
+\[
+  Dom_g=\mathbb{R}\setminus\{k\pi|k \in \mathbb{Z}\}
+\]
+
+\textit{Nota:} Se ha de considerar que $\lim\limits_{x \to \infty}\sin(x)$ no existe porque sus valores oscilan entre $-1$ y $1$.
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}
+    [
+      axis lines = middle,
+      xlabel = $x$,
+      ylabel = $y$,
+      xmax = 10,
+      xmin = -10,
+      ymax = 5,
+      ymin = -5,
+    ]
+    \addplot
+      [
+        domain=-5*pi:5*pi,
+        samples=100,
+        color=blue,
+      ] 
+    {sin(deg(x))};
+  \addlegendentry{$\sin(x)$}
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+\section*{Límites infinitos}
+
+\textbf{Exampli gratia:} $\lim\limits_{x \to \infty} \frac{x+3}{x-1}$.
+
+\[
+  \lim\limits_{x \to \infty} \frac{x+3}{x-1} = \frac{\infty}{\infty} \text{, indeterminación}
+\]
+
+\[
+  \lim\limits_{x \to \infty}\frac{\frac{1}{x}(x+3)}{\frac{1}{x}(x-1)}=\lim\limits_{x \to \infty}\frac{1+\frac{3}{0}}{1-\frac{1}{x}}=\frac{1}{1}=1
+\]
+
+O, también, 
+
+\[
+  \frac{x+3}{x-1} = \frac{x-1+4}{x-1} = \frac{x-1}{x-1} + \frac{4}{x-1} = \frac{4}{x-1} + 1
+\]
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}
+    [
+      axis lines = middle,
+      xlabel = $x$,
+      ylabel = $y$,
+      xmax = 5,
+      xmin = -5,
+      ymax = 5,
+      ymin = -5,
+    ]
+    \addplot
+      [
+        domain=-5:5,
+        samples=100,
+        color=blue,
+       ] 
+      {(x+3)/(x-1)};
+    \addlegendentry{$\frac{x+3}{x-1}$}
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+\section*{Límites con valor absoluto}
+
+\textbf{Exampli gratia:} En el caso $\lim\limits_{x \to 0} \frac{|x-2|-2}{x}$, tenemos que considerar la definición de valor absoluto, 
+
+\[|x-2|= 
+  \begin{cases}
+    x-2 & \text{si $x \geq 2$}\\ 
+    -(x-2) & \text{si $x<2$}
+  \end{cases}
+\]
+
+Y como el límite tiende a 0, se da uso del segundo caso, 
+
+\[
+  \lim\limits_{x \to 0} \frac{|x-2|-2}{x} = \lim\limits_{x \to 0} \frac{-(x-2)-2}{x} = \lim\limits_{x \to 0} \frac{-x+2-2}{x} = \lim\limits_{x \to 0} (-1) = -1
+\]
+
+\section*{Vecindades}
+
+\textit{Def.} La suceción $(a_n), \, n \in \mathbb{N}$ converge a $L \in \mathbb{R}$ si $\forall \epsilon > 0 \; \exists N \in \mathbb{N} \, | \, \forall n \geq N \implies |a_n-L| < \epsilon$. 
+
+\textit{Vecindad del punto $a \in \mathbb{R}$ en radio $r$,}
+
+\[
+  V_r(a) = ]a-r, a+r[ = \{ x \in \mathbb{R} \, | \, |x-a|<r\}
+\] 
+
+\textbf{Exampli gratia:} 
+
+1) Sea $(\frac{1}{n})_{n = 1}^{\infty} = (1, \frac{1}{2}, \frac{1}{3}, \dots)$.
+
+\[
+  \lim\limits_{n \to \infty} \frac{1}{n} = 0
+\]
+
+Sea $\epsilon > 0$ arbitrario, 
+
+\[
+  |a_n - L| = |\frac{1}{n} - 0| = |\frac{1}{n}| = \frac{1}{n}
+\]
+
+\[
+  \frac{1}{n} < \epsilon \iff 1 < n \epsilon
+\]
+
+\[
+  \iff n > \frac{1}{\epsilon}
+\]
+
+Si $\epsilon = \frac{1}{10}, \; n >10$, 
+
+\[
+  a_{n + 1} = \frac{1}{11}
+\]
+
+\[
+  \text{Acaso } \frac{1}{11} \in V_{\frac{1}{10}} (0) 
+\]
+
+\[
+  |\frac{1}{11} - 0| < \frac{1}{10}
+\]
+
+\[
+  \frac{1}{11} < \frac{1}{10} \iff 10 < 11
+\]
+
+2) Sea $V_{0.1} (4) = ]3.9, 4.1[ = \{x \in \mathbb{R} \, | \, |x - 4| < 0.1\}$, ¿$x = 4.2 \in V_{0.1} (4)$?
+
+\[
+  |4.2 - 4| < 0.1
+\]
+
+\[
+  0.2 < 0.1 \text{, contradicción}
+\]
+
+\[
+  \therefore 4.2 \notin V_{0.1} (4)
+\]
+
+\end{document}

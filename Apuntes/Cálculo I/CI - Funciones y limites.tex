@@ -1,0 +1,228 @@
+\documentclass{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\selectlanguage{spanish}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage[dvipsnames, svgnames]{xcolor}
+\usepackage{soul}
+\setul{0.5ex}{0.3ex}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.8\baselineskip plus 0.2\baselineskip minus 0.1\baselineskip}
+\usepackage{geometry}
+\geometry{margin=3cm}
+\usepackage{titlesec} % Global section centering
+\titleformat{\section} % --
+  {\normalfont\Large\bfseries\centering}{\thesection}{1em}{} % --
+
+\title{Funciones y límites}
+\date{13-10-2025}
+\author{Velázquez Ramírez Carlos Raúl}
+
+\begin{document}
+\pagenumbering{gobble}
+  \maketitle
+  \newpage
+  \pagenumbering{roman}
+
+\section*{Composición de funciones}
+
+Sean $A, B, C \subseteq \mathbb{R}$ y sea $f: A \to B$ y $g: B \to C$ funciones. Se define la función copuesta $f$ con $g$, denotada por $f \circ g: A \to C$ como $(g \circ f)(x)=g(f(x))\, \forall x \in A$.
+
+\textbf{Exampli gratia:} Sean $f(x) = \sqrt{x}$, $g(x)=x^2$, 
+
+\textit{«q compuesta con f»} $(f \circ g)(x)$ 
+
+\begin{align*} 
+  (f \circ g)(x)&=f(g(x))\\
+          &=(f(x^2))\\
+          &=\sqrt{x}\\ 
+          &=|x|, Dom_{f \circ g}=\mathbb{R}
+\end{align*}
+
+\textit{«f compuesta con q»} $(g \circ f)(x)$ 
+
+\begin{align*}
+  (g \circ f)(x)&=g(f(x))\\
+          &=g(\sqrt{x})\\
+          &=(\sqrt{x})^2\\
+          &=x, Dom_{g \circ f}=\mathbb{R}
+\end{align*}
+
+\textbf{Observaciones:}
+
+I. $(g \circ f)(x) \neq (f \circ g)(x)$
+
+II. $Dom_{g \circ f}$ está formado por todos los $x \in Dom_f$ tal que $f(x) \in Dom_g$, es decir 
+
+\begin{center}
+  $Dom{g \circ f}=\{x \in Dom_f \, | \, f(x) \in Dom_g\}$
+\end{center}
+
+\textbf{Exampli gratia:} Sean $f(x)=\sqrt{x}$, $Dom_f=[0,\infty[$ y $g(x)=x^2$ $Dom_g=\mathbb{R}$
+\begin{align*}
+  Dom_{f \circ g}&=\{x \in Dom_g | g(x) \in Dom_f\}\\
+  Dom_{f \circ g}&=\mathbb{R} && \text{\textit{extendido}}\\
+  Dom_{f \circ g}&=\mathbb{R} && \text{\textit{restringido}}
+\end{align*}
+
+\section*{Función inversa}
+
+Sea $f: A \subseteq \mathbb{R} \to B \subseteq \mathbb{R}$ y $g: B \subseteq \mathbb{R} \to A \subseteq \mathbb{R}$ tal que $(f \circ g)(x)=(g \circ f)(x) \forall x \in A \cap B$, entonces $f \times g$ son funciones inversas una de la otra.
+
+Consecuentemente, $f$ y $g$ son biyectivas y representamos a $g$ como $f^{-1}$. Ademas
+
+\[
+  (f \circ f^{-1})(x)=x
+\]
+
+\textbf{Exampli gratia:} Muestre que $y=x^2$ y $y=\sqrt{x}$ son inversas una de la otra. Indique dominios, contradominios e imágenes correspondientes. 
+
+\textit{Solución:} Sean $f(x)=\sqrt{x}$ y $g(x)=x^2$. Por un lado, $(f \circ g)(x)=|x|$, por otro, $(g \circ f)(x)=x$. 
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}[
+    axis lines = left,
+    xlabel = $x$,
+    ylabel = $y$,
+    ]
+    \addplot[
+      domain=0:10,
+      samples=100,
+      color=blue,
+      ] {sqrt(x)};
+    \addlegendentry{$\sqrt{x}$}
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}[
+    axis lines = left,
+    xlabel = $x$,
+    ylabel = $y$,
+    ]
+    \addplot[
+      domain=0:10,
+      samples=100,
+      color=blue,
+      ] {x^2};
+    \addlegendentry{$x^2$}
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+Entonces, $(f \circ g)(x)=f(g(x))=f(x^2)=\sqrt{x^2}=x$ (se puede cancelar la raíz y el cuadrado, pues estamos trabajando únicamente en $\mathbb{R^+}$).
+
+Como $f$ y $g$ son biyectivas de $[0,\infty[ \to [0,\infty[$ y $(f \circ g)(x)=(g \circ f)(x)=x$, por lo tanto $f$ y $g$ son inversas una de la otra.
+
+\begin{align*}
+  f(x)&=\sqrt{x}, & f^{-1}(x)&=x^2\\
+  g(x)&=x^2, & g^{-1}&=\sqrt{x}
+\end{align*}
+
+\textit{Exampli gratia:} Calcule la inversa (de existir) de $f(x)=x^3$
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}[
+    axis lines = middle,
+    xlabel = $x$,
+    ylabel = $y$,
+      xmax = 10,
+      xmin = -10,
+      ymax = 10,
+      ymin = -10,
+    ]
+    \addplot[
+      domain=-10:10,
+      samples=100,
+      color=blue,
+      ] {x^3};
+    \addlegendentry{$x^3$}
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+$f: \mathbb{R} \to \mathbb{R}, Img_f=\mathbb{R}$, $f$ es biyectiva. 
+
+\begin{align*}
+  y&=x^3\\
+  x^3&=y\\
+  x&=y^{1/3}\\
+  x&=\sqrt[3]{y} \to y=\sqrt[3]{x}
+\end{align*}
+
+Sea $g(x)=\sqrt[3]{x}$, $g: \mathbb{R} \to \mathbb{R}$, $Img_g=\mathbb{R}$, $g$ es una biyección.
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}[
+    axis lines = middle,
+    xlabel = $x$,
+    ylabel = $y$,
+      xmax = 10,
+      xmin = -10,
+      ymax = 10,
+      ymin = -10,
+    ]
+    \addplot[
+      domain=-10:10,
+      samples=100,
+      color=blue,
+      ] {sign(x) * abs(x)^(1/3)};
+    \addlegendentry{$\sqrt[3]{x}$}
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+\begin{align*}
+  (f \circ g)(x)&=f(g(x))=f(\sqrt[3]{x})=(\sqrt[3]{x})^3=x\\
+  (g \circ f)(x)&=g(f(x))=g(x^3)=\sqrt[3]{x^3}=x
+\end{align*}
+
+Como $f$ y $g$ son biyectivas de $\mathbb{R} \to \mathbb{R}$ y $(f \circ g)(x) = (g \circ f)(x) = x \Rightarrow f$ y $g$ son inversas. 
+
+\textit{Comprobación:} Trazar en un plano $f(x)$, $f^{-1} (x)$ y $y = x$. Un lado de la recta se refleja en la otra.
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}[
+    axis lines = middle,
+    xlabel = $x$,
+    ylabel = $y$,
+      xmax = 10,
+      xmin = -6,
+      ymax = 10,
+      ymin = -6,
+    ]
+    \addplot[
+      domain=-6:10,
+      samples=100,
+      color=blue,
+      ] {x^3};
+    \addlegendentry{$x^3$}
+    \addplot[
+      domain=-6:10,
+      samples=100,
+      color=red,
+      ] {sign(x) * abs(x)^(1/3)};
+    \addlegendentry{$\sqrt[3]{x}$}
+    \addplot[
+      domain=-6:10,
+      samples=100,
+      color=green,
+      ] {x};
+    \addlegendentry{$y = x$}
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+\end{document}

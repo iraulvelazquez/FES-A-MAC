@@ -1,0 +1,135 @@
+\documentclass{article} % Document type 
+\usepackage[spanish]{babel} % Language typesetting 
+\usepackage[utf8]{inputenc} % Accented chars without commands
+\usepackage[T1]{fontenc} % Accented display corrected
+\selectlanguage{spanish} % Default lang, useful for for multi lang switching 
+\usepackage{amsmath} % Math 1/3
+\usepackage{amssymb} % Math 2/3
+\usepackage{stmaryrd} % Math 3/3
+\usepackage{tikz} % Crating graphics programmatically
+\usepackage{pgfplots} % Extends tikz for 2D and 3D plots for data and math f 
+\pgfplotsset{compat=1.18} % ---
+\usepackage{circuitikz} % Extends tikz for electrical circuits
+\usepackage[dvipsnames, svgnames]{xcolor} % Coloring
+\usepackage{soul} % Text highlighting 
+\setul{0.5ex}{0.3ex} % ---
+\setlength{\parindent}{15pt} % Controls indentantion for the first line of paragraphs 
+\setlength{\parskip}{0.8\baselineskip plus 0.2\baselineskip minus 0.1\baselineskip} % Vertical spacing between paragraphs 
+\usepackage{geometry} % Layout
+\geometry{margin=3cm} % --- 
+\usepackage{titlesec} % Global section centering
+\titleformat{\section} % --
+  {\normalfont\Large\bfseries\centering}{\thesection}{1em}{} % --
+\usepackage{changepage} % Special paragraph
+\newenvironment{x}[3]{
+  \begin{adjustwidth}{#1}{0cm}
+  \setlength{\parindent}{0pt}
+  #2\fontsize{#3}{1pt}\selectfont 
+}{
+  \end{adjustwidth}
+}
+
+\title{Notación y Diferenciación}
+\date{l0-11-2025}
+\author{Velázquez Ramírez Carlos Raúl}
+
+\begin{document}
+\pagenumbering{gobble}
+  \maketitle
+  \newpage
+  \pagenumbering{roman}
+
+\section*{Notación de la derivada}
+
+Si $y = f(x)$, su derivada en el punto $x_0$ se denota por 
+
+\[
+  y'(x_0) = f'(x_0) = \frac{dy}{dx} |_{x = x_0} = \frac{df}{dx} |_{x = x_0} = D(x_0)
+\]
+
+Si la derivada no se evalúa, simplemente 
+
+\[
+  y'= f'(x) = \frac{dy}{dx} = \frac{df}{dx} = D(x)
+\]
+
+Derivación de orden superior: 
+
+\[
+  y'' = f''(x) = \frac{d^2 y}{d x^2}
+\]
+
+\textbf{Exampli gratia;} 
+
+1) Muestre que $f$ es diferenciable. 
+
+\[
+  f: \mathbb{R} \to \mathbb{R} 
+\]
+
+\[
+  x |\to c \text{, $c$ es fijo}
+\]
+
+Demostración: 
+
+Sea $f(x) = c$, entonces $\forall x \in \mathbb{R} \setminus \{ x_0 \}$.
+
+\[
+  \frac{f(x) - f(x_0)}{x - x_0} = \frac{c - c}{x - x_0} = 0
+\]
+
+Entonces 
+
+\[
+  \lim\limits_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0} = \lim\limits_{x \to x_0} 0 = 0
+\]
+
+\[
+  \therefore f \text{ es diferenciable}
+\]
+
+2) Muestre que $f: \mathbb{R} \to \mathbb{R}$ dado por $f(x) = x^n$, $n \in \mathbb{N}$ es diferenciable en $\mathbb{R}$. 
+
+Demostración: Sean $x, \, x_0 \in \mathbb{R}$ con $x \neq x_0$. 
+
+\[
+  \frac{f(x) - f(x_0)}{x - x_0} = \frac{x^n - x^n_0}{x - x_0} = \frac{(x - x_0) (x^{n - 1} + x^{n - 2} x + \dots + x x^{n - 2}_0 + x^{n - 1}_0)}{(x - x_0)}
+\]
+
+\[
+  = x^{n - 1} + x^{n - 2} x + \dots + x x^{n - 2}_0 + x^{n - 1}_0
+\]
+
+Debido a que 
+
+\[
+  x^1 - y^1 = (x - y) \cdot 1
+\]
+
+\[
+  x^2 - y^2 = (x - y) (x + y)
+\]
+
+\[
+  x^3 - y^3 = (x - y) (x^2 + xy + y^2)
+\]
+
+\[
+  x^4 - y^4 = (x - y) (x + y) (x^2 + y^2) = (x - y) (x^3 + x^2 y + x y^2 + y^3)
+\]
+\begin{center}
+\dots\dots\dots
+\end{center}
+\[
+  x^n - y^n = (x - y) (x^{n - 1} + x^{n - 2} y + x^{n - 3} y^2 + \dots + x^2 y^{n -3} + x y^{n-2} + y^{n-1})
+\]
+
+Entonces 
+
+\[
+  \lim\limits_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0} = n x^{n - 1}_0
+\]
+
+Así, $f$ es diferenciable y $f'(x) = n x^{x - 1} \forall x \in \mathbb{R}$.
+\end{document}

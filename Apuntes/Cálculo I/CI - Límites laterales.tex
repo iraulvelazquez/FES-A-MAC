@@ -1,0 +1,432 @@
+\documentclass{article} % Document type 
+\usepackage[spanish]{babel} % Language typesetting 
+\usepackage[utf8]{inputenc} % Accented chars without commands
+\usepackage[T1]{fontenc} % Accented display corrected
+\selectlanguage{spanish} % Default lang, useful for for multi lang switching 
+\usepackage{amsmath} % Math 1/3
+\usepackage{amssymb} % Math 2/3
+\usepackage{stmaryrd} % Math 3/3
+\usepackage{tikz} % Crating graphics programmatically
+\usepackage{pgfplots} % Extends tikz for 2D and 3D plots for data and math f 
+\pgfplotsset{compat=1.18} % ---
+\usepackage{circuitikz} % Extends tikz for electrical circuits
+\usepackage[dvipsnames, svgnames]{xcolor} % Coloring
+\usepackage{soul} % Text highlighting 
+\setul{0.5ex}{0.3ex} % ---
+\setlength{\parindent}{15pt} % Controls indentantion for the first line of paragraphs 
+\setlength{\parskip}{0.8\baselineskip plus 0.2\baselineskip minus 0.1\baselineskip} % Vertical spacing between paragraphs 
+\usepackage{geometry} % Layout
+\geometry{margin=3cm} % --- 
+
+\title{Límites laterales}
+\date{17-10-2025}
+\author{Velázquez Ramírez Carlos Raúl}
+
+\begin{document}
+\pagenumbering{gobble}
+  \maketitle
+  \newpage
+  \pagenumbering{roman}
+
+\textbf{Exampli gratia:} 
+
+1) $\lim\limits_{x \to 0} \frac{1}{x}$.
+
+\[
+\lim\limits_{x \to 0} \frac{1}{x}=\frac{1}{0}=\infty
+\]
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}
+    [
+      axis lines = middle,
+      xlabel = $x$,
+      ylabel = $y$,
+      xmax = 5,
+      xmin = -5,
+      ymax = 5,
+      ymin = -5,
+    ]
+    \addplot
+      [
+        domain=-5:5,
+        samples=100,
+        color=blue,
+      ] 
+    {1/x};
+    \addlegendentry{$\frac{1}{x}$}
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+Limite por izq:
+
+\[
+  \lim\limits_{x \to 0^-} \frac{1}{x}=\lim\limits_{x \to 0} \frac{1}{x}=-\infty, x<0
+\]
+
+Limite por la derecha:
+
+\[
+  \lim\limits_{x \to 0^+} \frac{1}{x}=\lim\limits_{x \to o} \frac{1}{x}=+\infty, x>0
+\] 
+
+Menos infinito:
+
+\[
+  \lim\limits_{x \to -\infty} \frac{1}{x}=\frac{1}{-\infty}=0
+\] 
+
+Más infinito:
+
+\[
+  \lim\limits_{x \to +\infty} \frac{1}{x}=\frac{1}{+\infty}=0
+\] 
+
+2) Estudiar $\lim\limits_{x \to 0} sng x$.
+
+\[sgn(x)= 
+  \begin{cases}
+    1 & \text{si $x>0$}\\ 
+    0 & \text{si $x=0$}\\ 
+    -1 & \text{si $x<0$}
+  \end{cases}
+\]
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}
+    [
+      axis lines = middle,
+      xlabel = $x$,
+      ylabel = $y$,
+      xmax = 5,
+      xmin = -5,
+      ymax = 5,
+      ymin = -5,
+    ]
+    \addplot
+      [
+        domain=-5:0,
+        samples=100,
+        color=blue,
+      ] 
+    {-1};
+    \addlegendentry{$f(x)=-1$}
+    \addplot
+       [
+         domain=0:5,
+         samples=100,
+         color=blue,
+       ] 
+     {1};
+     \addlegendentry{$f(x)=1$}
+    \addplot
+      [
+       color=blue,
+       only marks,
+       mark=*,
+       mark size=2pt,
+       forget plot,
+      ]
+    coordinates {(0,0)};
+
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+Limite por izq:
+
+\[
+  \lim\limits_{x \to 0^-} sng x=\lim\limits_{x \to 0} (-1)=-1
+\]
+
+Limite por der:
+
+\[
+  \lim\limits_{x \to 0^+} sng x=\lim\limits_{x \to 0} (1)=1
+\]
+
+Como ambos, el límite por izq. y por der. no coinciden, concluimos que el limite no existe.
+
+3) Calcule $\lim\limits_{x \to 0}\frac{1}{x^2}$.
+
+\[
+\lim\limits_{x \to 0}\frac{1}{x^2}=\frac{1}{0}=\infty 
+\]
+
+Como el denominador es $x^2$, este $\infty$ es «forzado»a ser positivo, aunque es válido percibirlo por casos.
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}
+    [
+      axis lines = middle,
+      xlabel = $x$,
+      ylabel = $y$,
+      xmax = 5,
+      xmin = -5,
+      ymax = 5,
+      ymin = -5,
+    ]
+    \addplot
+      [
+        domain=-5:5,
+        samples=100,
+        color=blue,
+      ] 
+      {1/x^2};
+    \addlegendentry{$\frac{1}{x^2}$}
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+4) Estudie la continuidad de $f$ en los puntos de ruptura.
+
+\[f(x)= 
+  \begin{cases}
+    x^2-1 & \text{, si $x \leq 0$}\\ 
+    \frac{1}{x} & \text{, si $x>0$}\\ 
+  \end{cases}
+\]
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}
+    [
+      axis lines = middle,
+      xlabel = $x$,
+      ylabel = $y$,
+      xmax = 10,
+      xmin = -10,
+      ymax = 10,
+      ymin = -10,
+    ]
+    \addplot
+      [
+        domain=-10:1,
+        samples=100,
+        color=blue,
+      ] 
+    {x^2-1};
+    \addlegendentry{$x^2-1$}
+  \addplot
+    [
+      domain=1:10,
+      samples=100,
+      color=blue,
+    ] 
+  {1/x};
+  \addlegendentry{$\frac{1}{x}$}
+  \addplot
+    [
+      color=black,
+      only marks,
+      mark=*,
+      mark size=2pt,
+      forget plot,
+    ]
+  coordinates {(1,0)};
+  \addplot
+    [
+      color=black,
+      only marks,
+      mark=o,
+      mark size=2pt,
+      forget plot,
+    ]
+  coordinates {(1,1)};
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+¿$f$ es continua en $x=1$? 
+
+Por un lado, 
+
+\[
+f(1)=1^2-1=0 
+\]
+
+Por otro lado, calculemos $\lim\limits_{x \to 1} f(x)$. Para esto calculamos limites laterales, 
+
+\[
+\lim\limits_{x \to 1^+} f(x)=\lim\limits_{x \to 1} \frac{1}{x}=1,\, x>1
+\] 
+
+\[
+\lim\limits_{x \to 1^-} f(x)=\lim\limits_{x \to 1} (x^2-1)=0,\, x<1
+\] 
+
+Como los limites laterales son distintos, el limite no existe y, por lo tanto, $f$ es discontinua en $x=1$.
+
+5) Estudie la continuidad de $f(x)=mx+b$, $m,b \in \mathbb{R}$.
+
+\[
+Dom_f=\mathbb{R}
+\]
+
+Sea $a \in \mathbb{R}$. Veamos si $f$ es continua en $x=a$,
+
+Por un lado, 
+
+\[
+f(x)=ma+b
+\]
+
+Por otro lado,
+
+\[
+\lim\limits_{x \to a} f(x)=ma+b 
+\]
+
+Como $f(x)=\lim\limits_{x \to a}$, y $a \in \mathbb{R}$ es arbitrario, concluimos que $f(x)=mx+b$ es continua en $\mathbb{R}$.
+
+\textit{Otras funciones que son continuas en su dominio:}
+
+i) Funciones polinómicas.
+
+ii) Funciones racionales. 
+
+6) Determine si $f(x)=|2x-1|$ es continua en $\mathbb{R}$. 
+
+Solución: 
+
+\[f(x)= 
+  \begin{cases}
+    2x-1 & \text{, si $x\geq\frac{1}{2}$}\\ 
+    -(2x-1) & \text{, si $x<\frac{1}{2}$}\\ 
+  \end{cases}
+\]
+
+Como las rectas son funciones polinómicas, $f(x)$ es continua en $\mathbb{R} \setminus \{\frac{1}{2}\}$.
+
+Ahora, estudiemos la continuidad en $x=\frac{1}{2}$.
+
+Por un lado, 
+
+\[
+  f(\frac{1}{2})=2(\frac{1}{2})-1=0 
+\]
+
+Por otro lado, calculemos $\lim\limits_{x \to \frac{1}{2}} f(x)$,
+
+\[
+  \lim\limits_{x \to \frac{1}{2}^-} f(x)=\lim\limits_{x \to \frac{1}{2}}-(2x-1)=-(2\cdot\frac{1}{2}-1)=0, x<\frac{1}{2}
+\]
+
+\[
+  \lim\limits_{x \to \frac{1}{2}^+} f(x)=\lim\limits_{x \to \frac{1}{2}}(2x-1)=2\cdot\frac{1}{2}-1=0, x>\frac{1}{2}
+\]
+
+Como los límites laterales coinciden, el límite existe. Además, como $\lim\limits_{x \to \frac{1}{2}} f(x)=f(\frac{1}{2})$, $f$ es continua en $x=\frac{1}{2}$. Por lo tanto, $f$ es continua en $\mathbb{R}$.
+
+7) $y=|\frac{1}{x}|$.
+
+\[|\frac{1}{x}|= 
+  \begin{cases}
+    \frac{1}{x} & \text{, si $x>0$}\\ 
+    -\frac{1}{x} & \text{, si $x<0$}
+  \end{cases}
+\]
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}
+    [
+      axis lines = middle,
+      xlabel = $x$,
+      ylabel = $y$,
+      xmax = 5,
+      xmin = -5,
+      ymax = 5,
+      ymin = -5,
+    ]
+    \addplot
+      [
+        domain=-5:5,
+        samples=100,
+        color=blue,
+      ] 
+    {abs(1/x)};
+    \addlegendentry{$|\frac{1}{x}|$}
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+8) $\lim\limits_{x \to 6}\frac{\sqrt{6}-\sqrt{x}}{36-x^2}$.
+
+\[
+  \lim\limits_{x \to 6}\frac{\sqrt{6}-\sqrt{x}}{36-x^2}=\frac{\sqrt{6}-\sqrt{6}}{36-36}=\frac{0}{0} \text{ , indeterminación}
+\]
+
+\[
+\lim\limits_{x \to 6}\frac{\sqrt{6}-\sqrt{x}}{(6-x)(6+x)}=\lim\limits_{x \to 6}\frac{\sqrt{6}-\sqrt{x}}{(\sqrt{6}-\sqrt{x})(\sqrt{6}+\sqrt{x})(6+x)}=\lim\limits_{x \to 6}\frac{1}{(\sqrt{6}+\sqrt{x})(6+x)}
+\]
+\[
+=\frac{1}{(\sqrt{6}+\sqrt{6})(6+6)}=\frac{1}{(2\sqrt{6})12}=\frac{1}{24\sqrt{6}}\cdot\frac{\sqrt{6}}{\sqrt{6}}=\frac{6}{144}
+\]
+\[
+  x \neq 6 \text{, por $\sqrt{6}-\sqrt{x}$}
+\]
+
+9) $\lim\limits_{x \to 5}=\frac{\sqrt{x+4}-3}{x-5}$.
+
+
+\[
+  \lim\limits_{x \to 5}=\frac{\sqrt{x+4}-3}{x-5}=\frac{3-3}{5-5}=\frac{0}{0} \text{, indeterminación}
+\]
+
+\[
+  \lim\limits_{x \to 5}=\frac{\sqrt{x+4}-3}{x-5}\cdot\frac{\sqrt{x+4}+3}{\sqrt{x+4}+3}=\lim\limits_{x \to 5}\frac{(\sqrt{x+4})^2-3^2}{(x-5)(\sqrt{x+4}+3)} 
+\]
+
+\[
+\text{, recordemos que $(\sqrt{a}-\sqrt{b})(\sqrt{a}+\sqrt{b})=a^2-b^2$}
+\]
+
+\[
+ =\lim\limits_{x \to 5}\frac{x+4-9}{(x-5)(\sqrt{x+4}+3)}=\lim\limits_{x \to 5}\frac{x-5}{(x-5)(\sqrt{x+4}+3)}=\lim\limits_{x \to 5}\frac{1}{\sqrt{x+4}+3}=\frac{1}{6}
+\]
+
+\[
+  x \neq 5 \text{, por $x-5$} 
+\]
+
+Pero gráficamente,
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}
+    [
+      axis lines = middle,
+      xlabel = $x$,
+      ylabel = $y$,
+      xmax = 5,
+      xmin = -5,
+      ymax = 5,
+      ymin = -5,
+    ]
+    \addplot
+      [
+        domain=-5:5,
+        samples=100,
+        color=blue,
+      ] 
+    {sqrt(x+4)};
+    \addlegendentry{$\sqrt{x+4}$}
+    \addplot
+      [
+        domain=-5:5,
+        samples=100,
+        color=blue,
+      ]
+    {-3};
+    \addlegendentry{$y+3$}
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+, no existe intersección. Por lo tanto, solo hay solución en $\mathbb{C}$.
+\end{document}

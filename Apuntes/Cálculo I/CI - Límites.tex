@@ -1,0 +1,488 @@
+\documentclass{article} % Document type 
+\usepackage[spanish]{babel} % Language typesetting 
+\usepackage[utf8]{inputenc} % Accented chars without commands
+\usepackage[T1]{fontenc} % Accented display corrected
+\selectlanguage{spanish} % Default lang, useful for for multi lang switching 
+\usepackage{amsmath} % Math 1/3
+\usepackage{amssymb} % Math 2/3
+\usepackage{stmaryrd} % Math 3/3
+\usepackage{tikz} % Crating graphics programmatically
+\usepackage{pgfplots} % Extends tikz for 2D and 3D plots for data and math f 
+\pgfplotsset{compat=1.18} % ---
+\usepackage{circuitikz} % Extends tikz for electrical circuits
+\usepackage[dvipsnames, svgnames]{xcolor} % Coloring
+\usepackage{soul} % Text highlighting 
+\setul{0.5ex}{0.3ex} % ---
+\setlength{\parindent}{15pt} % Controls indentantion for the first line of paragraphs 
+\setlength{\parskip}{0.8\baselineskip plus 0.2\baselineskip minus 0.1\baselineskip} % Vertical spacing between paragraphs 
+\usepackage{geometry} % Layout
+\geometry{margin=3cm} % --- 
+\usepackage{titlesec} % Global section centering
+\titleformat{\section} % --
+  {\normalfont\Large\bfseries\centering}{\thesection}{1em}{} % --
+
+\title{Límites}
+\date{15-10-2025}
+\author{Velázquez Ramírez Carlos Raúl}
+
+\begin{document}
+\pagenumbering{gobble}
+  \maketitle
+  \newpage
+  \pagenumbering{roman}
+
+\section*{Límites y casos}
+
+1) $\lim\limits_{x \to \infty} [f(x) \pm g(x)] = \lim\limits_{x \to a} f(x) \pm \lim\limits_{x \to a} g(x)$ si los limites existen.
+
+2) $\lim\limits_{x \to a} f(x) = c \lim\limits_{x \to a} f(x)$ si los limites existen.
+
+3) $\lim\limits_{x \to a} \frac{f(x)}{g(x)} = \frac{\lim\limits_{x \to a} f(x)}{\lim\limits_{x \to a} g(x)}$ si los limites existen y $g(x) \neq 0$. 
+
+4) $\lim\limits_{x \to a} [f(x)]^n = [\lim\limits_{x \to a} f(x)]^n$ si los limites existen, con $n \in \mathbb{R}$ y $f(x) \neq 0$ y $n \neq 0$. 
+
+\textbf{Exampli gratia:} Calcula los siguientes límites. 
+
+1) $\lim\limits_{x \to 5} x^2$ 
+
+Tendríamos que $\lim\limits_{x \to 5} x^2 = 5^2=25$. 
+
+Gráficamente: 
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}
+    [
+      axis lines = middle,
+      xlabel = $x$,
+      ylabel = $y$,
+      xmax = 10,
+      xmin = -10,
+      ymax = 30,
+      ymin = 0,
+    ]
+    \addplot
+      [
+        domain=-10:10,
+        samples=100,
+        color=blue,
+      ] 
+    {x^2};
+    \addlegendentry{$x^2$}
+    \addplot
+      [
+       color=black,
+       only marks,
+       mark=*,
+       mark size=2pt,
+       forget plot,
+      ]
+    coordinates {(5,25)};
+  \addplot
+    [
+      domain = -10:10,
+      samples = 100,
+      color = blue,
+      line width = 1pt,
+      dashed,
+    ]
+    coordinates {(5,0)(5,25)};
+  \addplot
+    [
+      domain=-0:5,
+      samples=100,
+      color=blue,
+      line width = 1pt,
+      dashed,
+    ] 
+  {25};
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+2) $\lim\limits_{x \to 1} (x+2)$
+
+Tendríamos que $\lim\limits_{x \to 1} (x+2)=\lim\limits_{x \to 1} x + \lim\limits_{x \to 1} 2 = 1 + 2 = 3$.
+
+Gráficamente: 
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}
+    [
+      axis lines = middle,
+      xlabel = $x$,
+      ylabel = $y$,
+      xmax = 5,
+      xmin = -5,
+      ymax = 5,
+      ymin = -5,
+    ]
+    \addplot
+      [
+        domain=-5:5,
+        samples=100,
+        color=blue,
+      ] 
+    {x+2};
+    \addlegendentry{$f(x)=x+2$}
+    \addplot
+      [
+        domain = 0:1,
+        samples = 100,
+        color = blue,
+        line width = 1pt,
+        dashed,
+      ]
+    {3};
+    \addplot
+      [
+        color = black,
+        only marks,
+        mark=*,
+        mark size = 2pt,
+        forget plot,
+      ]
+    coordinates {(1,3)};
+    \addplot
+      [
+        domain = -5:5,
+        samples = 100,
+        color = blue,
+        line width = 1pt,
+        dashed,
+      ]
+      coordinates {(1,0)(1,3)};
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}
+    [
+      axis lines = middle,
+      xlabel = $x$,
+      ylabel = $y$, 
+      xmin = -5,
+      xmax = 5,
+      ymin = -5,
+      ymax = 5,
+    ]
+    \addplot
+      [
+        domain=-5:5,
+        samples=100,
+        color=blue,
+      ] 
+    {x};
+    \addlegendentry{$f(x)=x$}
+    \addplot
+      [
+        color = black,
+        only marks,
+        mark=*,
+        mark size = 2pt,
+        forget plot,
+      ]
+    coordinates {(1,1)};
+    \addplot
+      [
+        domain = -5:5,
+        samples = 100,
+        color = blue,
+        line width = 1pt,
+        dashed,
+      ]
+      coordinates {(1,0)(1,1)};
+    \addplot
+      [
+        domain = 0:1,
+        samples = 100,
+        color = blue,
+        line width = 1pt,
+        dashed,
+      ]
+    {1};
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}
+    [
+      axis lines = middle,
+      xlabel = $x$,
+      ylabel = $y$,
+      xmax = 5,
+      xmin = -5,
+      ymax = 5,
+      ymin = -5,
+    ]
+    \addplot
+      [
+        domain=-5:5,
+        samples=100,
+        color=blue,
+      ] 
+    {2};
+    \addlegendentry{$f(x)=2$}
+    \addplot
+      [
+        color = black,
+        only marks,
+        mark=*,
+        mark size = 2pt,
+        forget plot,
+      ]
+    coordinates {(1,2)};
+    \addplot
+      [
+        domain = -5:5,
+        samples = 100,
+        color = blue,
+        line width = 1pt,
+        dashed,
+      ]
+      coordinates {(1,0)(1,2)};
+
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+Básicamente, la suma de los valores de las ordenadas en las funciones $f(x)=x$ y $f(x)=2$ cuando $x \to 1$ es igual a una nueva coordenada que corresponde a la función $f(x)=x+2$, cuya ordenada es la solución al límite.
+
+3) $\lim\limits_{x \to 2} \frac{x^2-4}{x-2} = \frac{2^2-4}{2-2} = \frac{0}{0}$, indeterminación. 
+
+Quitemos la indeterminación: $\lim\limits_{x \to 2} \frac{x^2-4}{x-2} = \lim\limits_{x \to 2} \frac{(x-2)(x+2)}{x-2} = \lim\limits_{x \to 2} (x+2)=4$
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}[
+    axis lines = middle,
+    xlabel = $x$,
+    ylabel = $y$,
+    ]
+    \addplot[
+      domain=-10:10,
+      samples=100,
+      color=blue,
+      ] {x+2};
+    \addlegendentry{$x+2$}
+    \addplot
+      [
+        color = black,
+        only marks,
+        mark=o,
+        mark size = 2pt,
+        forget plot,
+      ]
+    coordinates {(2,4)};
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+$\lim\limits_{x \to 2} \frac{x^2-4}{x-2} = x+2$, donde $x \neq 2$ y $Dom_f=\mathbb{R} \setminus \{2\}$
+
+Para calcular la ordenada del "hoyo" (discontinuidad removible) en $x=2$, calculamos $\lim\limits_{x \to 2} f(x) = 4$. 
+
+¿Cómo podemos redefinir la función para que sea continua en $x=2$? 
+
+\textit{Def.} Continuidad en un punto: $f$ es continua en un punto $a \in Dom_f$ si $\lim\limits_{x \to a} f(x) = f(x)$.
+
+Volviendo a nuestro caso anterior:
+
+\[\text{Sea } g(x)= 
+  \begin{cases}
+    \frac{x^2-4}{x-2} & \text{si $x \neq 2$}\\ 
+    4 & \text{si $x=2$}
+  \end{cases}
+\]
+
+Esta es una nueva función que remueve la discontinuidad en $x=2$ para $\lim\limits_{x \to 2} \frac{x^2-4}{x-2}$, tratandose de una función por partes. 
+
+\textbf{Exampli gratia:} Sea $f(x)=\frac{3x^3-7x^2+4x}{3x^3-10x^2+8x}$, estudie su continuidad. 
+
+\[
+f(x)=\frac{x(3x^2-7x+4)}{[x(3x^2-10x+8)}=\frac{x(3x-4)(x-1)}{x(3x-4)(x-2)}, Dom_f=\mathbb{R} \setminus \{0, \frac{4}{3}, 2\}
+\]
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}
+    [
+      axis lines = middle,
+      xlabel = $x$,
+      ylabel = $y$,
+      xmax = 5,
+      xmin = -5,
+      ymax = 5,
+      ymin = -5,
+    ]
+    \addplot
+      [
+        domain=-5:5,
+        samples=100,
+        color=blue,
+      ] 
+    {(1/(x-2))+1};
+    \addlegendentry{$\frac{1}{x-2}=1$}
+    \addplot
+      [
+       color=black,
+       only marks,
+       mark=o,
+       mark size=2pt,
+       forget plot,
+      ]
+    coordinates {(0,1/2)};
+    \addplot
+      [
+       color=black,
+       only marks,
+       mark=o,
+       mark size=2pt,
+       forget plot,
+      ]
+    coordinates {(4/3,-1/2)};
+
+  \addplot
+    [
+      domain = -5:5,
+      samples = 100,
+      color = blue,
+      line width = 1pt,
+      dashed,
+    ]
+    coordinates {(2,5)(2,-5)};
+  \addplot
+    [
+      domain=-5:5,
+      samples=100,
+      color=blue,
+      line width = 1pt,
+      dashed,
+    ] 
+  {1};
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+Evaluado en $x=0$,
+
+\[
+\lim\limits_{x \to 0} f(x) = \lim\limits_{x \to 0} \frac{x(3x-40(x-1)}{x(3x-4)(x-2)}
+\]
+
+\[
+  \lim\limits_{x \to 0} \frac{x-1}{x-2}=\frac{1}{2} \text{, discontinuidad evitable en } (0,\frac{1}{2})
+\]
+
+Evaluado en $x=\frac{4}{3}$,
+
+\[
+\lim\limits_{x \to \frac{4}{3}} f(x)=\lim\limits_{x \to \frac{4}{3}} \frac{x(3x-4)(x-1)}{x(3x-4)(x-2)}
+\]
+
+\[
+  \lim\limits_{x \to \frac{4}{3}} \frac{x-1}{x-2}=-\frac{1}{2} \text{, discontinuidad evitable en } (\frac{4}{3}, -\frac{1}{2})
+\]
+
+Evaluado en $x=2$,
+
+\[
+\lim\limits_{x \to 2} \frac{x-1}{x-2}=\frac{1}{0}=\infty \text{, está indefinido.}
+\]
+
+$\frac{1}{0}=\infty$ cuando se habla de limites, no en todos los contextos es verdad. 
+
+$\frac{1}{0}=\infty \to \text{asíntota o discontinuidad infinita}$ 
+
+Las discontinuidades infinitas no son evitables.
+
+\[
+  f(x)=\frac{x-1}{x-2} \text{, donde }x \neq 0, x \neq \frac{4}{3}; 
+\]
+
+\[
+\frac{x-1}{x-2}=\frac{1}{x-2} + 1 
+\]
+
+Redefinamos la función para que sea continua en $x=0$ y $x=\frac{4}{3}$, 
+
+\[\text{Sea } g(x)= 
+  \begin{cases}
+    f(x) & \text{si $x \neq 0, x\neq \frac{4}{3}$}\\ 
+    \frac{x-1}{x-2} & \text{si $x=0 \lor x=4/3$}
+  \end{cases}
+\]
+
+\[
+Dom_g=\mathbb{R} \setminus \{2\} 
+\]
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}
+    [
+      axis lines = middle,
+      xlabel = $x$,
+      ylabel = $y$,
+      xmax = 5,
+      xmin = -5,
+      ymax = 5,
+      ymin = -5,
+    ]
+    \addplot
+      [
+        domain=-5:5,
+        samples=100,
+        color=blue,
+      ] 
+    {(1/(x-2))+1};
+    \addlegendentry{$\frac{1}{x-2}=1$}
+    \addplot
+      [
+       color=black,
+       only marks,
+       mark=*,
+       mark size=2pt,
+       forget plot,
+      ]
+    coordinates {(0,1/2)};
+    \addplot
+      [
+       color=black,
+       only marks,
+       mark=*,
+       mark size=2pt,
+       forget plot,
+      ]
+    coordinates {(4/3,-1/2)};
+
+  \addplot
+    [
+      domain = -5:5,
+      samples = 100,
+      color = blue,
+      line width = 1pt,
+      dashed,
+    ]
+    coordinates {(2,5)(2,-5)};
+  \addplot
+    [
+      domain=-5:5,
+      samples=100,
+      color=blue,
+      line width = 1pt,
+      dashed,
+    ] 
+  {1};
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+\textit{Nota:} Se refiere explícitamente a la continuidad en su propio dominio en una función, y la discontinuidad general considera a aquellos valores fuera del dominio. En este caso, la función \textit{es continua en su dominio}, mientras que \textit{es discontinua en $x=2$}.
+
+\end{document}
