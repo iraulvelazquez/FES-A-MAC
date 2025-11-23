@@ -1,0 +1,832 @@
+\documentclass{article} % Document type 
+\usepackage[spanish]{babel} % Language typesetting 
+\usepackage[utf8]{inputenc} % Accented chars without commands
+\usepackage[T1]{fontenc} % Accented display corrected
+\selectlanguage{spanish} % Default lang, useful for for multi lang switching 
+\usepackage{amsmath} % Math 1/3
+\usepackage{amssymb} % Math 2/3
+\usepackage{stmaryrd} % Math 3/3
+\usepackage{tikz} % Crating graphics programmatically
+\usepackage{pgfplots} % Extends tikz for 2D and 3D plots for data and math f 
+\pgfplotsset{compat=1.18} % ---
+\usepackage{circuitikz} % Extends tikz for electrical circuits
+\usepackage[dvipsnames, svgnames]{xcolor} % Coloring
+\usepackage{soul} % Text highlighting 
+\setul{0.5ex}{0.3ex} % ---
+\setlength{\parindent}{15pt} % Controls indentantion for the first line of paragraphs 
+\setlength{\parskip}{0.8\baselineskip plus 0.2\baselineskip minus 0.1\baselineskip} % Vertical spacing between paragraphs 
+\usepackage{geometry} % Layout
+\geometry{margin=3cm} % --- 
+\usepackage{titlesec} % Global section centering
+\titleformat{\section} % --
+  {\normalfont\Large\bfseries\centering}{\thesection}{1em}{} % --
+\usepackage{changepage} % Special paragraph
+\newenvironment{x}[3]{
+  \begin{adjustwidth}{#1}{0cm}
+  \setlength{\parindent}{0pt}
+  #2\fontsize{#3}{1pt}\selectfont 
+}{
+  \end{adjustwidth}
+}
+
+\title{TVI, TVM y Teorema de Bolzano}
+\date{21-11-2025}
+\author{Velázquez Ramírez Carlos Raúl}
+
+\begin{document}
+\pagenumbering{gobble}
+  \maketitle
+  \newpage
+  \pagenumbering{roman}
+
+  \section*{Teorema del valor intermedio (TVI)} 
+
+  Sea $f$ una función continua en $[a, b]$. Si $f(a) \neq f(b)$, entonces existe $c \in ]a, b[$ tal que $f(c)$ está entre $f(a)$ y $f(b)$. 
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}
+    [
+      axis lines = middle,
+      xlabel = $x$,
+      ylabel = $f(x)$,
+      xmax = 7,
+      xmin = -1,
+      ymax = 30,
+      ymin = -1,
+      xtick = \empty,
+      ytick = \empty,
+      extra x ticks={3, 4, 5},
+      extra x tick labels={\small$a$, \small$c$, \small$b$},
+      extra x tick style={tick label style={below, yshift = -2pt}},
+      extra y ticks={9, 16, 25},
+      extra y tick labels={\small$f(a)$, \small$f(c)$, \small$f(b)$},
+      extra y tick style={tick label style={left, yshift = -2pt}},
+    ]
+    \addplot
+      [
+        domain=-1:9,
+        samples=100,
+        color=blue,
+      ] 
+    {x^2};
+    \addplot
+      [
+       color=black,
+       only marks,
+       mark=*,
+       mark size=2pt,
+       forget plot,
+      ]
+    coordinates {(5,25)};
+  \addplot
+    [
+      domain = -10:10,
+      samples = 100,
+      color = red,
+      line width = 1pt,
+      dashed,
+    ]
+    coordinates {(5,0)(5,25)};
+  \addplot
+    [
+      domain=-0:5,
+      samples=100,
+      color=red,
+      line width = 1pt,
+      dashed,
+    ] 
+  {25};
+    \addplot
+      [
+       color=black,
+       only marks,
+       mark=*,
+       mark size=2pt,
+       forget plot,
+      ]
+    coordinates {(4,16)};
+  \addplot
+    [
+      domain = -10:10,
+      samples = 100,
+      color = red,
+      line width = 1pt,
+      dashed,
+    ]
+    coordinates {(4,0)(4,16)};
+  \addplot
+    [
+      domain=-0:4,
+      samples=100,
+      color=red,
+      line width = 1pt,
+      dashed,
+    ] 
+  {16};
+    \addplot
+      [
+       color=black,
+       only marks,
+       mark=*,
+       mark size=2pt,
+       forget plot,
+      ]
+    coordinates {(3,9)};
+  \addplot
+    [
+      domain = -10:10,
+      samples = 100,
+      color = red,
+      line width = 1pt,
+      dashed,
+    ]
+    coordinates {(3,0)(3,9)};
+  \addplot
+    [
+      domain=-0:3,
+      samples=100,
+      color=red,
+      line width = 1pt,
+      dashed,
+    ] 
+  {9};
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+\textbf{Exampli gratia:} 
+
+1) Considere la función: 
+
+\[f(x)= 
+  \begin{cases}
+    x - 1 & \text{si $0 \leq x \leq 2$}\\ 
+    x^2 & \text{si $2 < x \leq 3$}
+  \end{cases}
+\]
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}
+    [
+      axis lines = middle,
+      xlabel = $x$,
+      ylabel = $y$,
+      xmax = 4,
+      xmin = -1,
+      ymax = 7,
+      ymin = -1,
+    ]
+    \addplot
+      [
+        domain=0:2,
+        samples=100,
+        color=blue,
+      ] 
+    {x-1};
+    \addplot
+      [
+        domain = 2:3,
+        samples = 100,
+        color = blue,
+      ]
+    {x^2};
+    \addplot
+      [
+        color = black,
+        only marks,
+        mark=*,
+        mark size = 2pt,
+        forget plot,
+      ]
+    coordinates {(2,1)};
+    \addplot
+      [
+        color = black,
+        only marks,
+        mark=o,
+        mark size = 2pt,
+        forget plot,
+      ]
+    coordinates {(2,4)};
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+
+\[
+  f: [0, 3] \to \mathbb{R}
+\]
+
+\[
+  f(0) = -1
+\]
+
+\[
+  f(3) = 9
+\]
+
+\[
+  f(2) = 1 \text{, $f$ no es continua en $x=2$,}
+\]
+
+\[
+  2 \in ]0, 3[
+\]
+
+\[
+  f(0) \leq f(2) \leq f(3) \Rightarrow -1 <= 1 <= 9
+\]
+
+2) Sea $g(x) = \frac{2}{x - 4}$, 
+
+Nótese que $g$ es discontinua en \underline{$x = 4$}, el cual pertenece al intervalo \underline{$[2, 5]$}. 
+
+Además, \underline{$g(2) = -1$} y \underline{$g(5) = 2$}. 
+
+Si \underline{$k \in ]-1, 2[$}, no hay valor alguno de $c$ en \underline{$]2, 5[$}, tal que $g(c) = k$.
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}
+    [
+      axis lines = middle,
+      xlabel = $x$,
+      ylabel = $y$,
+      xmax = 7,
+      xmin = -1,
+      ymax = 5,
+      ymin = -4,
+      xtick = \empty,
+      ytick = \empty,
+      extra y ticks={-1, 1, 2},
+      extra y tick labels={\small$g(2) = -1$, \small$g(6) = 1$, \small$g(5) = 2$},
+      extra y tick style={tick label style={left, yshift = -2pt}},
+    ]
+    \addplot
+      [
+        domain=2:5,
+        samples=50,
+        color=blue,
+      ] 
+    {2/(x-4)};
+  \addplot
+    [
+      domain = -10:10,
+      samples = 100,
+      color = red,
+      line width = 1pt,
+      dashed,
+    ]
+    coordinates {(2,-4)(2,5)};
+  \addplot
+    [
+      domain = -10:10,
+      samples = 100,
+      color = red,
+      line width = 1pt,
+      dashed,
+    ]
+    coordinates {(5,-4)(5,5)};
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+
+En particular, si $k = 1$, entonces $g(6) = 1$, pero $6 \notin [2, 5]$. 
+
+\begin{center}
+  \textit{Error}: $f$ es continua en $[2, 5]$ (\textit{falso}) $\Rightarrow 6 \notin ]2, 5[$
+\end{center} 
+
+3) Sea $f(x) = 4 + 3x - x^2$, $f: [2, 5] \to \mathbb{R}$. 
+
+Verifique que el TVI se cumple para $f(c) = 1$ trazando la gráfica de $f$ y la recta de $y = 1$. 
+
+\[
+  f(2) = 6
+\]
+
+\[
+  f(5) = -6
+\]
+
+Como $f(5) \leq f(c) \leq f(2)$, por el TVI, $\exists c \in ]2, 5[$ tal que $f(c) = 1$.
+
+\[
+  4 + 3x - x^2 = 1
+\]
+
+\[
+  x^2 - 3x - 4 = -1
+\]
+
+\[
+  x^2 - 3x - 3 = 0
+\]
+
+\[
+  x_{1, 2} = \frac{3 \pm \sqrt{21}}{2}
+\]
+
+\[
+  c_1 = \frac{2 + \sqrt{21}}{2}, \; c_2 = \frac{2 - \sqrt{21}}{2}
+\]
+
+\[
+  f(x) = -x^2 + 3x + 4 = -(x^2 - 3x - 4) = -[x^2 - 3x + \frac{9}{4} - \frac{9}{4} - 4] = -[(x - \frac{3}{2})^2 - \frac{9}{4} - \frac{16}{4}]
+\]
+
+\[
+  = -(x - \frac{3}{2})^2 + \frac{25}{4}
+\]
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}
+    [
+      axis lines = middle,
+      xlabel = $x$,
+      ylabel = $y$,
+      xmax = 7,
+      xmin = -4,
+      ymax = 7,
+      ymin = -1,
+      xtick = \empty,
+      ytick = \empty,
+      extra x ticks={-0.8, 3.8},
+      extra x tick labels={\small$c_2$, \small$c_1$},
+      extra x tick style={tick label style={left, yshift = -2pt}},
+    ]
+    \addplot
+      [
+        domain=-7:7,
+        samples=50,
+        color=blue,
+      ] 
+    {-x^2+3*x+4};
+    \addplot
+      [
+        domain=-7:7,
+        samples=50,
+        color=red,
+      ] 
+    {1};
+  \addplot
+    [
+      domain = -10:10,
+      samples = 100,
+      color = red,
+      line width = 1pt,
+      dashed,
+    ]
+    coordinates {(-0.8,0)(-0.8,1)};
+  \addplot
+    [
+      domain = -10:10,
+      samples = 100,
+      color = red,
+      line width = 1pt,
+      dashed,
+    ]
+    coordinates {(3.8,0)(3.8,1)};
+    \addplot
+      [
+        color = black,
+        only marks,
+        mark=*,
+        mark size = 2pt,
+        forget plot,
+      ]
+    coordinates {(-0.8,1)};
+    \addplot
+      [
+        color = black,
+        only marks,
+        mark=*,
+        mark size = 2pt,
+        forget plot,
+      ]
+    coordinates {(3.8,1)};
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+Pero como $f:[2, 5]$, se deshecha $c_2$ pues no vive en el dominio, contrario a $c_1$.
+
+\section*{Corolario: Teorema de Bolzano}
+
+Sea $f$ continua en $[a, b]$ y sean $f(a)$ y $f(b)$ de signos opuestos. Entonces existe $c \in ]a,b[$ tal que $f(c) = 0$. 
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}
+    [
+      axis lines = middle,
+      xlabel = $x$,
+      ylabel = $f(x)$,
+      xmax = 6,
+      xmin = -1,
+      ymax = 10,
+      ymin = -4,
+      xtick = \empty,
+      ytick = \empty,
+      extra x ticks={1, 2.6, 3},
+      extra x tick labels={\small$a$, \small$c$, \small$b$},
+      extra x tick style={tick label style={below, yshift = -2pt}},
+      extra y ticks={-2, 6},
+      extra y tick labels={\small$f(b)$, \small$f(a)$},
+      extra y tick style={tick label style={left, yshift = -2pt}},
+    ]
+    \addplot
+      [
+        domain=-1:9,
+        samples=100,
+        color=blue,
+      ] 
+    {-x^2+7};
+    \addplot
+      [
+       color=black,
+       only marks,
+       mark=*,
+       mark size=2pt,
+       forget plot,
+      ]
+    coordinates {(3,-2)};
+  \addplot
+    [
+      domain = -10:10,
+      samples = 100,
+      color = red,
+      line width = 1pt,
+      dashed,
+    ]
+    coordinates {(3,0)(3,-2)};
+  \addplot
+    [
+      domain=0:3,
+      samples=100,
+      color=red,
+      line width = 1pt,
+      dashed,
+    ] 
+  {-2};
+    \addplot
+      [
+       color=black,
+       only marks,
+       mark=*,
+       mark size=2pt,
+       forget plot,
+      ]
+    coordinates {(1,6)};
+  \addplot
+    [
+      domain = -10:10,
+      samples = 100,
+      color = red,
+      line width = 1pt,
+      dashed,
+    ]
+    coordinates {(1,0)(1,6)};
+  \addplot
+    [
+      domain=0:1,
+      samples=100,
+      color=red,
+      line width = 1pt,
+      dashed,
+    ] 
+  {6};
+    \addplot
+      [
+       color=black,
+       only marks,
+       mark=*,
+       mark size=2pt,
+       forget plot,
+      ]
+    coordinates {(2.6,0)};
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+Un ejemplo donde el Teorema de Bolzano no puede ser aplicado sería el siguiente: 
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}
+    [
+      axis lines = middle,
+      xlabel = $x$,
+      ylabel = $f(x)$,
+      xmax = 6,
+      xmin = -1,
+      ymax = 26,
+      ymin = -1,
+      xtick = \empty,
+      ytick = \empty,
+      extra x ticks={3, 4},
+      extra x tick labels={\small$a$, \small$b$},
+      extra x tick style={tick label style={below, yshift = -2pt}},
+      extra y ticks={14, 21},
+      extra y tick labels={\small$f(a)$, \small$f(b)$},
+      extra y tick style={tick label style={left, yshift = -2pt}},
+    ]
+    \addplot
+      [
+        domain=-1:9,
+        samples=100,
+        color=blue,
+      ] 
+    {x^2 + 5};
+    \addplot
+      [
+       color=black,
+       only marks,
+       mark=*,
+       mark size=2pt,
+       forget plot,
+      ]
+    coordinates {(4,21)};
+  \addplot
+    [
+      domain = -10:10,
+      samples = 100,
+      color = red,
+      line width = 1pt,
+      dashed,
+    ]
+    coordinates {(4,0)(4,21)};
+  \addplot
+    [
+      domain=-0:4,
+      samples=100,
+      color=red,
+      line width = 1pt,
+      dashed,
+    ] 
+  {21};
+    \addplot
+      [
+       color=black,
+       only marks,
+       mark=*,
+       mark size=2pt,
+       forget plot,
+      ]
+    coordinates {(3,14)};
+  \addplot
+    [
+      domain = -10:10,
+      samples = 100,
+      color = red,
+      line width = 1pt,
+      dashed,
+    ]
+    coordinates {(3,0)(3,14)};
+  \addplot
+    [
+      domain=-0:3,
+      samples=100,
+      color=red,
+      line width = 1pt,
+      dashed,
+    ] 
+  {14};
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+Donde la gráfica no cruza el eje $x$.
+
+\textbf{Exampli gratia:} 
+
+1) Estudie las raíces del polinomio $p(x) = x^3 - x^2 + 1$.  
+
+Por medio del Teorema de Descartes: 
+
+\begin{center}
+$p(x) \Rightarrow$ $2$ o $0$ raíces positivas $\Rightarrow$ $0$ raíces complejas.
+
+$p(-x) \Rightarrow$ $1$ raíz negativa $\Rightarrow$ $2$ raíces complejas.
+\end{center}
+
+\[
+  p(-1) = -1
+\]
+
+\[
+  p(1) = 1
+\]
+
+\[
+  p(0) = 1
+\]
+
+La raíz negativa, por el teorema de Bolzano, está en $]-1, 0[$.
+
+Por medio del método de bisección: 
+
+\[
+  p(- \frac{1}{2}) = (- \frac{1}{2})^3 - (- \frac{1}{2})^2 + 1 = - \frac{1}{8} - \frac{1}{4} + 1 = \frac{5}{8} > 0
+\]
+
+\section*{Teorema del valor medio (TVM)}
+
+Sea $f$ continua en $[a, b]$ y derivable en $]a, b[$. Entonces, existe un punto $c \in ]a, b[$ tal que 
+
+\[
+  f'(c) = \frac{f(b) - f(a)}{b - a}.
+\]
+
+Donde $f'(c)$ es la pendiente de la recta tangente, y $\frac{f(b) - f(a)}{b - a}$ es la pendiente del segmento de recta que une $(a, f(a))$ con $(b, f(b))$. 
+
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}
+    [
+      axis lines = middle,
+      xlabel = $x$,
+      ylabel = $f(x)$,
+      xmax = 6,
+      xmin = -1,
+      ymax = 8,
+      ymin = -1,
+      xtick = \empty,
+      ytick = \empty,
+      extra x ticks={0.6, 2, 3.4},
+      extra x tick labels={\small$a$, \small$c$, \small$b$},
+      extra x tick style={tick label style={below, yshift = -2pt}},
+      extra y ticks={0.2, 5.8},
+      extra y tick labels={\small$f(a)$, \small$f(b)$},
+      extra y tick style={tick label style={left, yshift = -2pt}},
+    ]
+    \addplot
+      [
+        domain=-1:9,
+        samples=100,
+        color=blue,
+        line width = 2pt,
+      ] 
+    {-(x-3)^2+6};
+    \addplot
+      [
+        domain=-1:9,
+        samples=100,
+        color=green,
+      ] 
+    {2*x+1};
+    \addplot
+      [
+        domain=-1:9,
+        samples=100,
+        color=blue,
+      ] 
+    {2*x-1};
+    \addplot
+      [
+       color=black,
+       only marks,
+       mark=*,
+       mark size=2pt,
+       forget plot,
+      ]
+    coordinates {(3.4,5.8)};
+  \addplot
+    [
+      domain = -10:10,
+      samples = 100,
+      color = red,
+      line width = 1pt,
+      dashed,
+    ]
+    coordinates {(3.4,0)(3.4,5.8)};
+  \addplot
+    [
+      domain=0:3.4,
+      samples=100,
+      color=red,
+      line width = 1pt,
+      dashed,
+    ] 
+  {5.8};
+    \addplot
+      [
+       color=black,
+       only marks,
+       mark=*,
+       mark size=2pt,
+       forget plot,
+      ]
+    coordinates {(0.6,0.2)};
+  \addplot
+    [
+      domain = -10:10,
+      samples = 100,
+      color = red,
+      line width = 1pt,
+      dashed,
+    ]
+    coordinates {(0.6,0)(0.6,0.2)};
+  \addplot
+    [
+      domain=0:0.6,
+      samples=100,
+      color=red,
+      line width = 1pt,
+      dashed,
+    ] 
+  {0.2};
+    \addplot
+      [
+       color=black,
+       only marks,
+       mark=*,
+       mark size=2pt,
+       forget plot,
+      ]
+    coordinates {(2,5)};
+  \addplot
+    [
+      domain = -10:10,
+      samples = 100,
+      color = red,
+      line width = 1pt,
+      dashed,
+    ]
+    coordinates {(2,0)(2,5)};
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+\textbf{Exampli gratia:} Determine los valores $a, b, c \in \mathbb{R}$ tal que $f$ satisfaga la hipótesis del TVM en $[0, 3]$.
+
+\[f(x)= 
+  \begin{cases}
+    1 & \text{, si } x = 0\\ 
+    ax + b & \text{, si } 0 < x \leq 1\\ 
+    x^2 + 4x + c & \text{, si } 1 < x \leq 3
+  \end{cases}
+\]
+
+Primero, estudiemos la continuidad de $f$ en $[0, 3]$. Como $f(x) = ax + b$ en $]0, 1[$, $f$ es continua por se un polinomio. 
+
+Como $f(x) = x^2 + 4x + c$ en $]1, 3[$, $f$ es continua por ser un polinomio. 
+
+Notemos que $f$ es continua por izq. en $x = 3$. 
+
+Vemos las condiciones para que $f$ sea continua en $x = 0$ y continua en $x = 1$. 
+
+\[
+  f(0) = 1, \; f(1) = a + b
+\]
+
+\[
+  \lim\limits_{x \to 0^+} f(x) = \lim\limits_{x \to 0, \, x>0} (ax + b) = b; \; f(0) = \lim\limits_{x \to 0^+} f(x) \Leftrightarrow b = 1
+\]
+
+\[
+  \lim\limits_{x \to 1^-} f(x) = \lim\limits_{x \to 1, \, x<1} (ax + b) = a + b
+\]
+
+\[
+  \lim\limits_{x \to 1^+} f(x) = \lim\limits_{x \to 1, \, x>1} (x^2 + 4x + c) = 5 + c
+\]
+
+De $f(1) = \lim\limits_{x \to 1} f(x)$, se tiene que $f(1) = \lim\limits_{x \to 1^-} f(x) = \lim\limits_{x \to 1^+} f(x)$.
+
+\[
+  a + b = a + b = 5 + c \Leftrightarrow a + b = 5 + c
+\]
+
+Pero $b = 1 \Rightarrow a + 1 = 5 + c \Rightarrow a = c + 4$. 
+
+Ahora, estudiemos la derivabilidad de $f$ en $]0, 5[$, ¿qué pasa en $x = 1$? 
+
+Calculemos $f'(1)$ por medio de sus derivadas laterales: 
+
+\[
+  f'(1^-) = \lim\limits_{x \to 1^-} \frac{f(x) - f(1)}{x - 1} = \lim\limits_{x \to 1, \, x<1} \frac{(ax + b) - (a + b)}{x - 1} = \lim\limits_{x \to 1, \, x<1} \frac{a(x - 1)}{x - 1} = a
+\]
+
+\[
+  f'(1^+) \lim\limits_{x to 1^+} \frac{f(x) = f(1)}{x - 1} = \lim\limits_{x \to 1, \, x>1} \frac{(x^2 + 4x + c) - (a + b)}{x - 1}
+\]
+
+\[
+  \text{Considerando $b = 1$ } \Rightarrow \lim\limits_{x \to 1, \, x>1} \frac{x^2 + 4x + c - a - 1}{x - 1}
+\]
+
+\[
+  \text{Considerando $c - a = -4$ } \Rightarrow \lim\limits_{x to 1, \, x>1} \frac{x^2 + 4x + (-4) - 1}{x - 1} = \lim\limits_{x \to 1, \, x>1} \frac{x^2 + 4x - 5}{x - 1} 
+\]
+
+\[
+  = \lim\limits_{x \to 1, \, x>1} \frac{(x + 5)(x - 1)}{x - 1} = 6
+\]
+
+\end{document}

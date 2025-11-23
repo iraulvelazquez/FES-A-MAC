@@ -1,0 +1,136 @@
+\documentclass{article} % Document type 
+\usepackage[spanish]{babel} % Language typesetting 
+\usepackage[utf8]{inputenc} % Accented chars without commands
+\usepackage[T1]{fontenc} % Accented display corrected
+\selectlanguage{spanish} % Default lang, useful for for multi lang switching 
+\usepackage{amsmath} % Math 1/3
+\usepackage{amssymb} % Math 2/3
+\usepackage{stmaryrd} % Math 3/3
+\usepackage{tikz} % Crating graphics programmatically
+\usepackage{pgfplots} % Extends tikz for 2D and 3D plots for data and math f 
+\pgfplotsset{compat=1.18} % ---
+\usepackage{circuitikz} % Extends tikz for electrical circuits
+\usepackage[dvipsnames, svgnames]{xcolor} % Coloring
+\usepackage{soul} % Text highlighting 
+\setul{0.5ex}{0.3ex} % ---
+\setlength{\parindent}{15pt} % Controls indentantion for the first line of paragraphs 
+\setlength{\parskip}{0.8\baselineskip plus 0.2\baselineskip minus 0.1\baselineskip} % Vertical spacing between paragraphs 
+\usepackage{geometry} % Layout
+\geometry{margin=3cm} % --- 
+\usepackage{titlesec} % Global section centering
+\titleformat{\section} % --
+  {\normalfont\Large\bfseries\centering}{\thesection}{1em}{} % --
+\usepackage{changepage} % Special paragraph
+\newenvironment{x}[3]{
+  \begin{adjustwidth}{#1}{0cm}
+  \setlength{\parindent}{0pt}
+  #2\fontsize{#3}{1pt}\selectfont 
+}{
+  \end{adjustwidth}
+}
+
+\DeclareMathOperator{\arccot}{arccot}
+
+\title{Diferenciación de funciones trigonométricas inversas}
+\date{19-11-2025}
+\author{Velázquez Ramírez Carlos Raúl}
+
+\begin{document}
+\pagenumbering{gobble}
+  \maketitle
+  \newpage
+  \pagenumbering{roman}
+
+\section*{Teorema de la función inversa}
+
+\textit{Def.} Sea $y = f(x)$ una función biyectiva. Suponemos que existe $f^{-1} (x)$ y es derivable, entonces 
+
+\[
+  \frac{dy}{dx} = \frac{1}{\frac{dx}{dy}}
+\]
+
+\textbf{Exampli gratia:}
+
+1) Sea $y = \arcsin(x)$, ¿cómo obtener $y'$? 
+
+Por el teorema de la función inversa, 
+
+\[
+  y' = \frac{dy}{dx} = \frac{1}{\frac{dx}{dy}} 
+\]
+
+\[
+  \arcsin(x) \Rightarrow \sin(y) = \sin(\arcsin(x)) \Rightarrow \sin(y) = x
+\]
+
+\[
+  x = \sin(y) \Rightarrow \frac{dx}{dy} = \frac{d \sin(y)}{dy} = \cos(y)
+\]
+
+\[
+  \frac{dx}{dy} = \cos(y)
+\]
+
+\[
+  y' = \frac{1}{\cos(y)}
+\]
+
+Consideremos que, 
+
+\[
+  \sin^2(x) + \cos^2(x) = 1
+\]
+
+\[
+  \cos^2(x) = 1 - \sin^2(x) 
+\]
+
+\[
+  \cos(x) = \sqrt{1 - \sin^2(x)}
+\]
+
+Por lo tanto, 
+
+\[
+  y' = \frac{1}{\sqrt{1 - \sin^2(y)}} = \frac{1}{\sqrt{1 - x^2}}
+\]
+
+\[
+  \therefore \frac{d (\arcsin(x))}{dx} = \frac{1}{\sqrt{1 - x^2}}
+\]
+
+Si se combina el teorema de la función inversa con la regla de la cadena se tiene que: 
+
+\[
+  \frac{d}{dx} \arcsin(v) = \frac{v'}{\sqrt{1 - v^2}}
+\]
+
+, donde $v = v(x)$.
+
+Ejercicio: Obtener $\frac{d}{dx} \arccos(x)$, 
+
+2)
+
+\[
+  y = \arctan(x) \Rightarrow x = \cot(y) \Rightarrow x' = -\csc^2y
+\]
+
+\[
+  \frac{dy}{dx} = \frac{1}{\frac{dx}{dy}} = \frac{1}{- \csc^2(y)}
+\]
+
+Debemos pasarla a terminos de $x$.
+
+Consideremos $\sin^2(x) + \cos^2(x) = 1 \Rightarrow 1 + \cot^2(x) = \csc^2(x)$, al dividir entre $\sin^2(x)$.
+
+Entonces, 
+
+\[
+  = \frac{-1}{1 + \cot^2(y)} = \frac{-1}{1 + x^2}
+\]
+
+\[
+  \therefore \frac{d}{dx} (\arccot(x)) = \frac{-1}{1 + x^2}
+\]
+
+\end{document}
