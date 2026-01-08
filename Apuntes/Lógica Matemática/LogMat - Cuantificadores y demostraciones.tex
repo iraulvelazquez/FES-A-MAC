@@ -1,0 +1,119 @@
+\documentclass{article} % Document type 
+\usepackage[spanish]{babel} % Language typesetting 
+\usepackage[utf8]{inputenc} % Accented chars without commands
+\usepackage[T1]{fontenc} % Accented display corrected
+\selectlanguage{spanish} % Default lang, useful for for multi lang switching 
+\usepackage{amsmath} % Math 1/3
+\usepackage{amssymb} % Math 2/3
+\usepackage{stmaryrd} % Math 3/3
+\usepackage{tikz} % Crating graphics programmatically
+\usepackage{pgfplots} % Extends tikz for 2D and 3D plots for data and math f 
+\pgfplotsset{compat=1.18} % ---
+\usepackage{circuitikz} % Extends tikz for electrical circuits
+\usepackage[dvipsnames, svgnames]{xcolor} % Coloring
+\usepackage{soul} % Text highlighting 
+\setul{0.5ex}{0.3ex} % ---
+\setlength{\parindent}{15pt} % Controls indentantion for the first line of paragraphs 
+\setlength{\parskip}{0.8\baselineskip plus 0.2\baselineskip minus 0.1\baselineskip} % Vertical spacing between paragraphs 
+\usepackage{geometry} % Layout
+\geometry{margin=3cm} % --- 
+\usepackage{titlesec} % Global section centering
+\titleformat{\section} % --
+  {\normalfont\Large\bfseries\centering}{\thesection}{1em}{} % --
+\usepackage{changepage} % Special paragraph
+\newenvironment{x}[3]{
+  \begin{adjustwidth}{#1}{0cm}
+  \setlength{\parindent}{0pt}
+  #2\fontsize{#3}{1pt}\selectfont 
+}{
+  \end{adjustwidth}
+}
+
+\title{Lógica Matemática}
+\date{09-10-2025}
+\author{Velázquez Ramírez Carlos Raúl}
+
+\begin{document}
+\pagenumbering{gobble}
+  \maketitle
+  \newpage
+  \pagenumbering{roman}
+
+\section*{Cuantificadores}
+\subsection*{E.g.}
+
+Todo estudiante en esta clase ha estudiado precálculo. 
+
+Para todo estudiante x en esta clase, x ha estudiado precálculo. 
+
+$P(x)=$ ha tomado precálculo.
+
+$\forall x Px$
+
+$\forall (x) | P(x)$ 
+
+\subsection*{E.g.}
+Todos los estudiantes de clase son varones. 
+
+Para todo estudiante $x$ de la clase, $x$ es varón.
+
+Si $Q(x):x$ es varón entonces se escribe: $\forall x | Q(x)$ 
+
+Si $Q(Adela)=Falso$; si $Q(Efrain)=Verdadero$.
+
+\subsection*{E.g.}
+
+Carlos juega $J(c)$.\\ Sujeto, predicado
+
+Carlos es estudiante $E(c)$.\\ Sujeto, precicado
+
+Si pablo estudia, entonces $2=4$.\\ $E(p) \to 2=4$\\ $E(p) \to 2=4$
+
+Todo perro no ladra.\\ $\forall (x) P(x) \to \neg L(x)$\\ or $\forall x | Px \to \neg Lx$ 
+
+Cualquier país es libre.\\ $\forall x | P(x) \to L(x)$ 
+
+Todos los árboles son verdes.\\ $\forall x | A(x) \to V(x)$
+
+No es cierto que algunos árboles son verdes.\\ $\neg \exists x [ A(x) \and \neg V(x)]$
+
+Ningún árbol es verde.\\ $\forall x | \neg (A(x) \to V(x))$
+
+No es cierto que algún árbol es verde.\\ $\neg \exists x | A(x) \land V(x)$\\ $\neg \exists x | (A(x) \land V(x))$
+
+Algún árbol no es verde.\\ $\exists x | (A(x) \land \neg V(x))$
+
+No es cierto que todo árbol es verde.\\ $\neg \forall x (A(x) \to V(x))$ 
+
+\section*{En desmostraciones} 
+
+Para desmostraciones se introduce un particularizador y un generalizador. 
+
+En generalizaciones:
+
+\begin{center}
+  $\forall (x) P(x)$\\ $P(a)$
+\end{center}
+
+Donde $P(a)$ elimina el generalizado. 
+
+En particularizaciones:
+
+\begin{center}
+  $\exists x | P(x)$\\ $P(a)$
+\end{center}
+
+Donde $P(a)$ elimina el particularizado.
+
+\subsection*{E.g.}
+
+Todo hombre es mortal.\\ Todo mortal es débil.\\ $\to$ Todo hombre es débil.
+
+$\forall (x) | H(x) \to M(x)$\\ $\forall (x) | M(x) \to D(x)$\\ $\to \forall (x) | H(x) \to D(x)$
+
+$H(a) \to M(a)$ EG\\ $M(a) \to D(a)$ EG 
+
+Utilizando $3'$ y $4'$ (silogismo hipotético). 
+
+$\to H(a) \to D(a)$\\ $\forall (x) | H(x) \to D(x)$
+\end{document}

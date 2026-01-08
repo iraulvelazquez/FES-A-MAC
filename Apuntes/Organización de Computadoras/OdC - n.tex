@@ -1,0 +1,78 @@
+\documentclass{article} % Document type 
+\usepackage[spanish]{babel} % Language typesetting 
+\usepackage[utf8]{inputenc} % Accented chars without commands
+\usepackage[T1]{fontenc} % Accented display corrected
+\selectlanguage{spanish} % Default lang, useful for for multi lang switching 
+\usepackage{amsmath} % Math 1/3
+\usepackage{amssymb} % Math 2/3
+\usepackage{stmaryrd} % Math 3/3
+\usepackage{tikz} % Crating graphics programmatically
+\usepackage{pgfplots} % Extends tikz for 2D and 3D plots for data and math f 
+\pgfplotsset{compat=1.18} % ---
+\usepackage{circuitikz} % Extends tikz for electrical circuits
+\usepackage[dvipsnames, svgnames]{xcolor} % Coloring
+\usepackage{soul} % Text highlighting 
+\setul{0.5ex}{0.3ex} % ---
+\setlength{\parindent}{0pt} % Controls indentantion for the first line of paragraphs 
+\setlength{\parskip}{0.8\baselineskip plus 0.2\baselineskip minus 0.1\baselineskip} % Vertical spacing between paragraphs 
+\usepackage{geometry} % Layout
+\geometry{margin=2cm} % --- 
+
+\title{Organización de Computadoras}
+\date{25-10-2025}
+\author{Velázquez Ramírez Carlos Raúl}
+
+\begin{document}
+\pagenumbering{gobble}
+  \maketitle
+  \newpage
+  \pagenumbering{roman}
+
+\section{Representación numérica binaria y punto flotante}
+
+Representación numérica binaria:
+
+\begin{center}
+$0000_2=0$\\
+$1111_2=15$ 
+\end{center}
+
+Codificación binaria con signo (codificación SNNN):
+
+\begin{center}
+$0000_2=0$\\
+$1111_2=-7$ 
+\end{center}
+
+Donde $0=+$ y $1=-$, siendo el bit del extremo izquierdo el bit de signo.
+
+También se tiene que $0000_2=1000_2$. Para arreglar esto, se tiene el \textit{complemento A UNO}. 
+
+Complemento A UNO: 
+
+\[
+0000_2=0
+\] 
+\[
+1000_2=-7
+\]
+
+Done el bit de signo pasa a ser una función negada del resto de la expresión. 
+
+Complemento A DOS:
+
+\[
+0000_2=0
+\]
+\[
+1000_2=-8
+\]
+
+Done se asigna $1000_2=-8$ y el resto de números siguen la lógica de A UNO. Aquí es donde se encuentra el overflow. Se puede asignar $1000_2=8$. Como hablamos de hardware, para que esto fucnione todos deben tener la misma asignación para $1000_2$.
+
+\subsection{Suma}
+
+En todas estas codificaciones, la operación de la suma es coherente incluso en la aparición de desborde.
+
+\textit{Nota:} Las computadoras solo saben sumar.
+\end{document}

@@ -1,0 +1,91 @@
+\documentclass{article} % Document type 
+\usepackage[spanish]{babel} % Language typesetting 
+\usepackage[utf8]{inputenc} % Accented chars without commands
+\usepackage[T1]{fontenc} % Accented display corrected
+\selectlanguage{spanish} % Default lang, useful for for multi lang switching 
+\usepackage{amsmath} % Math 1/3
+\usepackage{amssymb} % Math 2/3
+\usepackage{stmaryrd} % Math 3/3
+\usepackage{tikz} % Crating graphics programmatically
+\usepackage{pgfplots} % Extends tikz for 2D and 3D plots for data and math f 
+\pgfplotsset{compat=1.18} % ---
+\usepackage{circuitikz} % Extends tikz for electrical circuits
+\usepackage[dvipsnames, svgnames]{xcolor} % Coloring
+\usepackage{soul} % Text highlighting 
+\setul{0.5ex}{0.3ex} % ---
+\setlength{\parindent}{15pt} % Controls indentantion for the first line of paragraphs 
+\setlength{\parskip}{0.8\baselineskip plus 0.2\baselineskip minus 0.1\baselineskip} % Vertical spacing between paragraphs 
+\usepackage{geometry} % Layout
+\geometry{margin=3cm} % --- 
+\usepackage{titlesec} % Global section centering
+\titleformat{\section} % --
+  {\normalfont\Large\bfseries\centering}{\thesection}{1em}{} % --
+\usepackage{changepage} % Special paragraph
+\newenvironment{x}[3]{
+  \begin{adjustwidth}{#1}{0cm}
+  \setlength{\parindent}{0pt}
+  #2\fontsize{#3}{1pt}\selectfont 
+}{
+  \end{adjustwidth}
+}
+
+\title{Prolog}
+\date{08-11-2025}
+\author{Velázquez Ramírez Carlos Raúl}
+
+\begin{document}
+\pagenumbering{gobble}
+  \maketitle
+  \newpage
+  \pagenumbering{roman}
+
+\section*{¿Qué es Prolog?}
+
+\textit{Prolog} (en francés: \textit{Programmation en Logique}), es un lenguaje de programación lógico que, contrario al lenguajes populares como \textit{C, Python, Java, PHP}, etc. Prolog \textbf{no es secuencial}, es decir, su programa no se ejecuta instrucción por instrucción. Tampoco se trata de una interpretación per sé, pues en 1983 pasó a ser un lenguaje semi-initerpretado, gracias a David H.D. Warren, contando con su propio compilador, el \textit{WAM}, o \textit{Warren Abstract Machine}. Nacido a principio de los años 70 y, en sus inicios, escrito en \textit{ALGOL W} (antiquísimo lenguaje de programación, nacido en la mitad del siglo pasado, actualmente en desuso, pero que inspiró lenguajes como \textit{C} y \textit{Pascal}), actualmente se le da uso en campos como la inteligencia artificial. 
+
+\section*{Funcionamiento}
+
+Sabemos nosotros desde ya que la lógica proposicional no es secuencial, pues los estados de ciertas declaraciones lógicas dependen totalmente del estado de declaraciones lógicas pasadas. Para poder plasmar esta conducta en un lenguaje de programación, se ha de deshacerse de la secuencialidad, es decir, requiere ser un lenguaje interpretado. Y para el específico caso de \textit{Prolog}, se da uso del \textbf{backtracking} y la \textbf{unificación}. 
+
+Primeramente, la \textbf{unificación} se basa en determinar si un grupo de proposiciones tienen una conclusión verdadera o falsa, y de ser falsa, mediante el \textbf{backtracking} deshace todas las instrucciones ejecutadas, volviendo al punto de elección, pasando al siguiente, repitiendo el proceso.
+
+\section*{Ejemplo de sintáxis}
+
+\begin{x}{3cm}{\ttfamily}{8pt}
+padrede('Juan', 'María').\\ 
+padrede('Pablo', 'Juan').\\
+padrede('Pablo', 'Marcela').\\
+padrede('Carlos', 'Débora').
+
+hijode(A,B) :- padrede(B,A).
+
+abuelode(A,B) :- \\
+   padrede(A,C), \\
+   padrede(C,B).
+
+hermanode(A,B) :- \\
+   padrede(C,A) , \\
+   padrede(C,B), \\
+   A \== B.        
+
+familiarde(A,B) :- \\
+   padrede(A,B).\\
+familiarde(A,B) :-\\
+   hijode(A,B). \\
+familiarde(A,B) :- \\
+   hermanode(A,B).
+
+?- hermanode('Juan', 'Marcela').\\
+yes
+
+?- hermanode('Carlos', 'Juan').\\
+no
+
+?- abuelode('Pablo', 'María').\\
+yes
+
+?- abuelode('María', 'Pablo').\\
+no
+\end{x}
+
+\end{document}

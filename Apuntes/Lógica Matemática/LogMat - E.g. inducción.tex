@@ -1,0 +1,161 @@
+\documentclass{article} % Document type 
+\usepackage[spanish]{babel} % Language typesetting 
+\usepackage[utf8]{inputenc} % Accented chars without commands
+\usepackage[T1]{fontenc} % Accented display corrected
+\selectlanguage{spanish} % Default lang, useful for for multi lang switching 
+\usepackage{amsmath} % Math 1/3
+\usepackage{amssymb} % Math 2/3
+\usepackage{stmaryrd} % Math 3/3
+\usepackage{tikz} % Crating graphics programmatically
+\usepackage{pgfplots} % Extends tikz for 2D and 3D plots for data and math f 
+\pgfplotsset{compat=1.18} % ---
+\usepackage{circuitikz} % Extends tikz for electrical circuits
+\usepackage[dvipsnames, svgnames]{xcolor} % Coloring
+\usepackage{soul} % Text highlighting 
+\setul{0.5ex}{0.3ex} % ---
+\setlength{\parindent}{15pt} % Controls indentantion for the first line of paragraphs 
+\setlength{\parskip}{0.8\baselineskip plus 0.2\baselineskip minus 0.1\baselineskip} % Vertical spacing between paragraphs 
+\usepackage{geometry} % Layout
+\geometry{margin=3cm} % --- 
+
+\title{Inducción}
+\date{04-11-2025}
+\author{Velázquez Ramírez Carlos Raúl}
+
+\begin{document}
+\pagenumbering{gobble}
+  \maketitle
+  \newpage
+  \pagenumbering{roman}
+
+\textbf{Exampli gratia:} 
+
+1) Pruebe para todo número $n \in \mathbb{N}$: 
+
+\[
+  1^2 + 2^2 + \dots + n^2 = \frac{n (n + 1)(2n + 1)}{6}
+\]
+
+Paso 1: $n = 1$. 
+
+\[
+  1 = \frac{1 (1 + 1) (2(1) + 1)}{6} = \frac{6}{6} = 1
+\]
+
+Paso 2 (\textit{inductivo}): Suponemos válido para $n = k$. 
+
+\[
+  1^2 + 2^2 + \dots + k^2 = \frac{k (k + 1)(2k + 1)}{6}
+\]
+
+Y a partir de esto establecemos la validez de la formula para $n = k + 1$.
+
+\[
+  1^2 + 2^2 + \dots + (k + 1)^2 = [1^2 + 2^2 + \dots + k^2] + (k + 1)^2
+\]
+
+\[
+  = \frac{k (k + 1)(2k + 1)}{6} + (k + 1)^2
+\]
+
+\[
+  = \frac{[k (k + 1) (2k + 1) + 6 (k + 1)^2]}{6} = \frac{(k + 1)[k (2k + 1) + (k + 1)]}{6} = \frac{(k + 1) (2k^2 + 7k + 6)}{6}
+\]
+
+\[
+  = \frac{(k + 1) (k + 2) (2k + 3)}{6} = \frac{(k + 1)[(k + 1) + 1][2(k + 1) + 1]}{6}
+\]
+
+2) Pruebe que para todo número impar $n$, el número $n^2 - 1$ es divisible entre $8$. 
+
+Paso 1 (\textit{de inducción}): $n = 1$. 
+
+\[
+  1^2 - 1 = 1 - 1 = 0 = 0 \, (mod8)
+\]
+
+Paso 2 (\textit{inductivo}): Suponemos que la propiedad es válida para un número impar positivo cualquiera con $n = 2k + 1$, donde $k \in \mathbb{N} \cup \{0\}$.
+
+\textit{Hipótesis de inducción:} $(2k + 1)^2 - 1 = 0 \, mod8$.
+
+\[
+  + \, mod \, 8
+\]
+\begin{center}
+  \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+
+  + & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+  0 & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+  1 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 0 \\
+  2 & 2 & 3 & 4 & 5 & 6 & 7 & 0 & 1 \\
+  3 & 3 & 4 & 5 & 6 & 7 & 0 & 1 & 2 \\
+  4 & 4 & 5 & 6 & 7 & 0 & 1 & 2 & 3 \\
+  5 & 5 & 6 & 7 & 0 & 1 & 2 & 3 & 4 \\
+  6 & 6 & 7 & 0 & 1 & 2 & 3 & 4 & 5 \\
+  7 & 7 & 0 & 1 & 2 & 3 & 4 & 5 & 6 \\
+   
+\end{tabular}
+\end{center}
+
+\[
+  * \, mod \, 8
+\]
+\begin{center}
+  \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+
+  * & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+  0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+  1 & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+  2 & 0 & 2 & 4 & 6 & 0 & 2 & 4 & 6 \\
+  3 & 0 & 3 & 6 & 1 & 4 & 7 & 2 & 5 \\
+  4 & 0 & 4 & 0 & 4 & 0 & 4 & 0 & 4 \\
+  5 & 0 & 5 & 2 & 7 & 4 & 1 & 6 & 3 \\
+  6 & 0 & 6 & 4 & 2 & 0 & 6 & 4 & 2 \\
+  7 & 0 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\
+   
+\end{tabular}
+\end{center}
+
+Ahora con base en esto, probamos la validez de la propiedad para el siguiente impar. 
+
+\[
+  n = 2k + 3
+\]
+
+\[
+  (2k + 3) - 1 = [(2k + 1)^2 - 1] + 2]^2 - 1 
+\]
+
+\[
+  (2k + 1)^2 + 2 (2) (2k + 1) + 4 - 1 = (2k + 1)^2 - 1 + 4 (2k + 1) + 4 = [(2k + 1)^2 - 1] + 8k + 8
+\]
+
+Se aplica la hipótesis de inducción: 
+
+\[
+  (2k + 3)^2 - 1 = [(2k + 1)^2 - 1] + 8k + 8 = 0 + 0 + 0 \, mod \, 8
+\]
+
+Por lo que se concluye que $n^2 - 1 = 0 \, (mod \, 8)$ para todo número impar.
+
+3) Pruebe que $n! > 3^{n - 2}$ para cada $n \in \mathbb{N}$, con $n \geq b$.
+
+Paso 1 (\textit{base de inducción}): Procedemos a mostrar la validez de la desigualdad para el primer caso $n = 3$. 
+
+\[
+  3! = 1 \cdot 2 \cdot 3 = 6 > 3^1 = 3^{3 - 2}
+\]
+
+Paso 2: Suponemos que la desigualdad es válida para $n = k$ donde $k \in \mathbb{N}$ arbitrario, tal que $k \geq 3$.
+
+\textit{Hipótesis de inducción:} $k! > 3^{k - 2}$. 
+
+Ahora probemos la validez de la desigualdad para $n = k + 1$, donde $k > 3$.
+
+\[
+  (k + 1)! = 1 \cdot 2 \cdot 3 \cdot \dots \cdot K \cdot (k + 1) = 3^{k - 2} (k + 1) > 3^{k - 2} -3 = 3^{k - 1} = 3{(k + 1) - 2}
+\]
+
+$n! > 3^{n - 2}$ para todo natural $n > 3$.
+
+\end{document}

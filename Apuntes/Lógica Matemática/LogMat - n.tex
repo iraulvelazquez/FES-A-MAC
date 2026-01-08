@@ -1,0 +1,44 @@
+\documentclass{article} % Document type 
+\usepackage[spanish]{babel} % Language typesetting 
+\usepackage[utf8]{inputenc} % Accented chars without commands
+\usepackage[T1]{fontenc} % Accented display corrected
+\selectlanguage{spanish} % Default lang, useful for for multi lang switching 
+\usepackage{amsmath} % Math 1/3
+\usepackage{amssymb} % Math 2/3
+\usepackage{stmaryrd} % Math 3/3
+\usepackage{tikz} % Crating graphics programmatically
+\usepackage{pgfplots} % Extends tikz for 2D and 3D plots for data and math f 
+\pgfplotsset{compat=1.18} % ---
+\usepackage{circuitikz} % Extends tikz for electrical circuits
+\usepackage[dvipsnames, svgnames]{xcolor} % Coloring
+\usepackage{soul} % Text highlighting 
+\setul{0.5ex}{0.3ex} % ---
+\setlength{\parindent}{15pt} % Controls indentantion for the first line of paragraphs 
+\setlength{\parskip}{0.8\baselineskip plus 0.2\baselineskip minus 0.1\baselineskip} % Vertical spacing between paragraphs 
+\usepackage{geometry} % Layout
+\geometry{margin=3cm} % --- 
+\usepackage{titlesec} % Global section centering
+\titleformat{\section} % --
+  {\normalfont\Large\bfseries\centering}{\thesection}{1em}{} % --
+\usepackage{changepage} % Special paragraph
+\newenvironment{x}[3]{
+  \begin{adjustwidth}{#1}{0cm}
+  \setlength{\parindent}{0pt}
+  #2\fontsize{#3}{1pt}\selectfont 
+}{
+  \end{adjustwidth}
+}
+
+\title{Nigga}
+\date{18-11-2025}
+\author{Velázquez Ramírez Carlos Raúl}
+
+\begin{document}
+\pagenumbering{gobble}
+  \maketitle
+  \newpage
+  \pagenumbering{roman}
+
+-
+
+\end{document}

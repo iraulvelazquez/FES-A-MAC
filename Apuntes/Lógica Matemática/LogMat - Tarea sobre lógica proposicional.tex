@@ -1,0 +1,270 @@
+\documentclass{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\selectlanguage{spanish}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+\usepackage[dvipsnames, svgnames]{xcolor}
+\usepackage{soul}
+\setul{0.5ex}{0.3ex}
+\setulcolor{blue}
+\usepackage{}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.8\baselineskip plus 0.2\baselineskip minus 0.1\baselineskip}
+
+\title{Lógica Matemática}
+\date{2025-09-23}
+\author{Velázquez Ramírez Carlos Raúl}
+
+\begin{document}
+  \pagenumbering{gobble}
+  \maketitle
+  \newpage
+  \pagenumbering{roman}
+
+\section{Temas}
+\subsection{Lógica} 
+\subsection{Proposiciones}
+\subsection{Conectivos}
+\subsection{Tablas de verdad}
+\subsection{Tautologías o contradicciones}
+
+\begin{enumerate}
+  \item La felicidad es un producto de las circunstancias o es un producto de la madurez Por lo tanto, la felicidad es un producto de la madurez. ¿Cuál de las proposiciones siguientes bastaría agregar para producir un argumento válido?
+  \begin{itemize}
+    \item[a)] La felicidad no es un producto de la madurez. 
+    \item[b)] No es el caso que la felicidad no sea producto de las circunstancias.
+    \item[c)] \ul{La felicidad no es un producto de las circunstancias.}
+    \item[d)] La felicidad es un producto de las circunstancias.
+  \end{itemize}
+\end{enumerate}
+
+\begin{enumerate}
+  \item[2.] Elige la negación lógica de él es bello.
+  \begin{itemize}
+    \item[a)] Él es feo.
+    \item[b)] Él es imperfecto.
+    \item[c)] \ul{Él no es bello.}
+    \item[d)] Él es  horrible.
+  \end{itemize}
+    
+\end{enumerate}
+
+\begin{enumerate}
+  \item[3.] Es falso que: las mujeres son superiores a los hombres o que los hombres son inferiores a las mujeres.  ¿Cuál de las siguientes afirmaciones es equivalente a la anterior?
+  \begin{itemize}
+    \item[a)] \ul{Las mujeres no son superiores a los hombres y los hombres no son inferiores a las mujeres.}
+    \item[b)] No es cierto que: las mujeres son superiores a los hombres y los hombres son inferiores a las mujeres.
+    \item[c)] Es falso que: las mujeres sean superiores a los hombres y los hombres sean inferiores a las mujeres.
+    \item[d)] Es falso que: las mujeres sean superiores a los hombres y los hombres sean inferiores a las mujeres.
+  \end{itemize}
+\end{enumerate}
+
+\begin{enumerate}
+  \item[4.] Supongamos que mis preferencias son transitivas. Prefiero a Cameron Díaz sobre Angelina Jolie y a Claudia Schiffer sobre Cameron Díaz. Dadas la proposiciones anteriores ¿Cuál de las siguientes afirmaciones se sigue válidamente?
+  \begin{itemize}
+    \item[a)] \ul{Prefiero a Claudia Shiffer sobre Angelina Jolie.}
+    \item[b)] Prefiero a Angelina Jolie sobre Claudia Shiffer.
+    \item[c)] Prefiero a Claudia Shiffer y a Cameron Díaz.
+    \item[d)] No me gustan rubias.
+  \end{itemize}
+\end{enumerate}
+
+\begin{enumerate}
+  \item[5.] Construir la tabla de verdad para:
+
+$((r \land s) \to q) \iff ((s \land \neg q) \to \neg r)$ 
+
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+
+  $q$ & $r$ & $s$ & $\neg q$ & $\neg r$ & $r \land s$ & $(r \land s) \to q$ & $s \land \neg q$ & $(s \land \neg q) \to \neg r$ & $A \iff B$  \\
+  V  & V & V & F & F & V & V & F & V & V \\
+  V  & V & F & F & F & F & V & F & V & V \\ 
+  V  & F & V & F & V & F & V & F & V & V \\
+  V  & F & F & F & V & F & V & F & V & V \\ 
+  F  & V & V & V & F & V & F & V & F & V \\ 
+  F  & V & F & V & F & F & V & F & V & V \\ 
+  F  & F & V & V & V & F & V & F & V & V \\ 
+  F  & F & F & V & V & F & V & F & V & V \\
+
+\end{tabular}
+
+\end{enumerate}
+
+\begin{enumerate}
+  \item[6.] El modo que afirmando, afirma, es decir, establece que si una implicación es cierta y además si su antecedente es verdadero, entonces, su consecuente necesariamente es verdadero. Simbólicamente:
+
+$p \to q$\\ 
+$p$\\ 
+$\therefore q$
+
+Utilizando el \textbf{Modus Ponens}, llegue a la conclusión:
+\end{enumerate}
+
+\begin{itemize}
+  \item[a)]
+  \begin{itemize}
+    \item[P1] Lína es una estudiante de administración pública, entonces estudia en la ESAP.
+    \item[P2] Lina es una estudiante de administración pública.
+    \item[C] \textit{Lina estudia en la ESAP.}
+  \end{itemize}
+\end{itemize}
+
+\begin{itemize}
+  \item[b)]
+  \begin{itemize}
+    \item[P1] $a+b=c \to b+a=c$
+    \item[P2] $a+b=c$
+    \item[C] $\therefore b+a=c$
+  \end{itemize}
+\end{itemize}
+
+\begin{itemize}
+  \item[c)] 
+  \begin{itemize}
+    \item[P1] $r \to t$
+    \item[P2] $r$ 
+    \item[C] $\therefore t$ 
+  \end{itemize}
+\end{itemize}
+
+\begin{enumerate}
+
+  \item[7.] Indique el tipo de proposición de la cual se trata (simple ó compuesta)
+  \begin{itemize}
+    \item[a)] Hoy es lunes: \textit{Simple}
+    \item[b)] Hablo y no hablo: \textit{Compuesta}
+    \item[d)] Viene o no viene: \textit{Compuesta}
+    \item[d)] Carlos Fuentes es un escritor: \textit{Simple}
+    \item[e)] Sen(x) no es un número mayor que 1: \textit{Compuesta}
+    \item[f)] El 14 y 4 7 son factores del 42: \textit{Compuesta}
+    \item[g)] El 14 es factor del 42 y el 7 también es factor del 42: \textit{Compuesta}
+    \item[h)] El 2 o el 3 son divisores de 48: \textit{Compuesta}
+    \item[i)] El 2 es divisor de de 48 o el 3 es divisor de 48: \textit{Compuesta}   
+    \item[j)] Si x es un número primo, entonces x es impar: \textit{Compuesta}
+    \item[k)] Si x>10, entonces 2x-3>16: \textit{Compuesta}
+    \item[l)] No todos los números primos son impares: \textit{Compuesta}
+  \end{itemize}
+\end{enumerate}
+
+\begin{enumerate}
+  \item[11.] Sean:
+    \begin{itemize}
+      \item[p:] Este animal es un ave. 
+      \item[q:] Este animal tiene alas
+    \end{itemize}
+  \begin{itemize} 
+    \item[a)] Escriba la proposición: $p \to q$ 
+
+\textit{Si este animal es un ave, entonces este animal tiene alas.} 
+
+    \item[b)] Escriba la recíproca: $q \to b$ 
+
+\textit{Si este animal tiene alas, entonces este animal es un ave.} 
+
+    \item[c)] Escriba la inversa: $\neg p \to \neg q$ 
+
+\textit{Si este animal no es un ave, entonces este animal no tiene alas.} 
+
+    \item[d)] Escriba la contra-recpiorica: $\neg q \to \neg p$ 
+
+\textit{Si este animal no tiene alas, entonces este animal no es un ave.}
+  \end{itemize}
+
+\indent Elabore la tabla de verdad relacionada a la proposición, la recíproca, la inversa y la contra-recpiorica:
+
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+
+  $p$ & $q$ & $\neg p$ & $\neg q$ & $p \to q$ & $q \to p$ & $\neg p \to \neg q$ & $\neg q \to \neg p$ \\       
+  V & V & F & F & V & V & V & V \\ 
+  V & F & F & V & F & V & V & F \\ 
+  F & V & V & F & V & F & F & V \\ 
+  F & F & V & V & V & V & V & V \\ 
+  
+\end{tabular}
+
+\end{enumerate}
+
+\begin{enumerate}
+  \item[8.] Escribe la forma lógica del siguiente argumento e indica las reglas de inferencia que se utilizaron para la conclusión:
+    \begin{enumerate}
+      \item[1)] Si Sudáfrica es un país democrático, entonces el pueblo es libre y el gobierno es elegido por las mayorías. 
+
+$p \to (q \land r)$
+      \item[2)] El pueblo no es libre o el gobierno no es elegido por las mayorías.
+
+$\neg q \lor \neg r$
+
+      \item[3)] Si Sudáfrica no es un país democrático, entonces el gobierno sudafricáno está impuesto.
+
+$\neg p \to \neg r$
+
+\noindent Luego:
+
+      \item[4)] No es cierto que: el pueblo es libre y el gobierno elegido por las mayorías.
+
+$\neg (q \land r)$
+
+\noindent \textit{Modus Tollendo Tollens:} 
+
+$p \to (q \land r)$ \textit{(1)}\\ $\neg p$ \textit{(5)}\\ $\therefore \neg (q \land r)$ \textit{(4)}
+
+      \item[5)] Sudáfrica no es un país democrático. 
+
+$\neg p$
+
+\noindent \textit{Modus Tollendo Tollens:} 
+
+$p \to (q \land r)$ \textit{(1)}\\ $\neg (q \land r)$ \textit{(2,4)}\\ $\therefore \neg p$ \textit{(5)}
+  
+      \item[6)] El gobierno sudafricáno está impuesto.
+
+\noindent \textit{Modus Ponendo Ponens:} 
+
+$\neg p \to \neg r$ \textit{(3)}\\ $\neg p$ \textit{(5)}\\ $\therefore \neg r$ \textit{(6)} 
+
+    \end{enumerate}
+\end{enumerate}
+
+\begin{enumerate}
+  \item[9.] Dadas las proposiciones:
+    \begin{itemize}
+      \item[P:] Soy guapo.
+      \item[Q.] Soy millonario.
+      \item[R:] Tengo una mansión.
+    \end{itemize}
+        \begin{itemize}
+          \item[a)] Escriba la ley conjuntiva y represéntela con las proposiciones dadas. 
+
+$P$\\ $Q$\\ $R$\\ $\therefore P \land Q \land R$
+
+\textit{Soy guapo.}\\ \textit{Soy millonario.}\\ \textit{Tengo una mansión.}\\ \textit{Por lo tanto: soy guapo y soy millonario y tengo una mansión.} 
+
+          \item[b)] Escriba la ley simplificativa y represéntela con las proposiciones dadas.
+
+$P \land Q \land R$\\ $\therefore P Q R$
+
+\textit{Soy guapo y soy millonario y tengo una mansión.}\\ \textit{Por lo tanto: soy guapo, soy millonario, tengo una mansión.}
+
+          \item[c)] Escriba la ley aditiva y represéntela con las proposiciones dadas.
+
+$P$\\ $Q$\\ $R$\\ $\therefore P \lor Q \lor R$
+
+\textit{Soy guapo.}\\ \textit{Soy millonario.}\\ \textit{Tengo una mansión.}\\ \textit{Por lo tanto: soy guapo o soy millonario o tengo una mansión.}
+
+          \item[d)] Escriba el silogismo condicional o la ley transitiva y represéntela con las proposiciones dadas.
+
+$P \to Q$\\ $Q \to R$\\ $\therefore P \to R$
+
+\textit{Si soy guapo entonces soy millonario.}\\ \textit{Si soy millonario entonces tengo una mansión.}\\ \textit{Por lo tanto: si soy guapo entonces tengo una mansión.} 
+
+          \item[e)] Escriba la ley Modus Tollens y represéntela con as proposiciones dadas.
+
+$P \to (Q \land R)$\\ $\neg P$\\ $\therefore \neg (Q \land R)$
+
+\textit{Si soy guapo, entonces: soy millonario y tengo una mansión.}\\ \textit{No tengo una mansión.}\\ \textit{Por lo tanto, es falso que: soy millonario y tengo una mansión.} 
+        \end{itemize}
+\end{enumerate}
+\end{document}

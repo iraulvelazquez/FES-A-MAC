@@ -1,0 +1,85 @@
+\documentclass{article} % Document type 
+\usepackage[spanish]{babel} % Language typesetting 
+\usepackage[utf8]{inputenc} % Accented chars without commands
+\usepackage[T1]{fontenc} % Accented display corrected
+\selectlanguage{spanish} % Default lang, useful for for multi lang switching 
+\usepackage{amsmath} % Math 1/3
+\usepackage{amssymb} % Math 2/3
+\usepackage{stmaryrd} % Math 3/3
+\usepackage{tikz} % Crating graphics programmatically
+\usepackage{pgfplots} % Extends tikz for 2D and 3D plots for data and math f 
+\pgfplotsset{compat=1.18} % ---
+\usepackage{circuitikz} % Extends tikz for electrical circuits
+\usepackage[dvipsnames, svgnames]{xcolor} % Coloring
+\usepackage{soul} % Text highlighting 
+\setul{0.5ex}{0.3ex} % ---
+\setlength{\parindent}{15pt} % Controls indentantion for the first line of paragraphs 
+\setlength{\parskip}{0.8\baselineskip plus 0.2\baselineskip minus 0.1\baselineskip} % Vertical spacing between paragraphs 
+\usepackage{geometry} % Layout
+\geometry{margin=3cm} % --- 
+\usepackage{titlesec} % Global section centering
+\titleformat{\section} % --
+  {\normalfont\Large\bfseries\centering}{\thesection}{1em}{} % --
+\usepackage{changepage} % Special paragraph
+\newenvironment{x}[3]{
+  \begin{adjustwidth}{#1}{0cm}
+  \setlength{\parindent}{0pt}
+  #2\fontsize{#3}{1pt}\selectfont 
+}{
+  \end{adjustwidth}
+}
+
+\title{Tablas de Cayley}
+\date{06-11-2025}
+\author{Velázquez Ramírez Carlos Raúl}
+
+\begin{document}
+\pagenumbering{gobble}
+  \maketitle
+  \newpage
+  \pagenumbering{roman}
+
+\section*{Tablas de Cayley}
+
+Para un conjunto finito de elementos, una operación binaria en este puede ser definido por medio de una tabla cuyos elementos son enlistados tanto en la columna como fila principal. Y los resultados de esta operación son presentados en el contenido de la tabla. 
+
+\textbf{Exampli gratia:} Tabla de Cayley para la operación binaria suma en el conjunto $\{2, 3, 5, 7, 11\}$.
+
+\[
+  (+, \{2, 3, 5, 7, 11\})
+\]
+\begin{center}
+  \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+
+  +  & 2  & 3  & 5  & 7  & 11 \\
+  2  & 4  & 5  & 7  & 9  & 13 \\ 
+  3  & 5  & 6  & 8  & 10 & 14 \\
+  5  & 7  & 8  & 10 & 5  & 16 \\
+  7  & 9  & 10 & 12 & 6  & 18 \\
+  11 & 13 & 14 & 16 & 18 & 22 \\
+
+\end{tabular}
+\end{center}
+
+\section*{Operación módulo}
+
+Al operar con los conjuntos $\mathbb{N}$ o $\mathbb{Z}$, una de las restricciones al operar con la división es no poder representar el residuo adecuadamente. Para esto existe la operación módulo, donde el módulo, representado como $mod \, n$, resulta en el residuo de la división impropia $\frac{m}{n}$.
+
+\textbf{Exampli gratia:} Tabla de Cayley del módulo en el conjunto $\{2, 3, 5, 7\}$.
+
+\[
+  (mod \, n, n \in \{2, 3, 5, 7\})
+\]
+\begin{center}
+  \begin{tabular}{|c|c|c|c|c|c|c|c|}
+
+  $mod \, n$  & 2  & 3  & 5  & 7  \\
+  2           & 0  & 2  & 2  & 2  \\ 
+  3           & 1  & 0  & 3  & 10 \\
+  5           & 1  & 2  & 0 & 5  \\
+  7           & 1  & 1 & 2 & 0  \\
+
+\end{tabular}
+\end{center}
+
+\end{document}

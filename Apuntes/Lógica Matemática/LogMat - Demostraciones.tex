@@ -1,0 +1,207 @@
+\documentclass{article} % Document type 
+\usepackage[spanish]{babel} % Language typesetting 
+\usepackage[utf8]{inputenc} % Accented chars without commands
+\usepackage[T1]{fontenc} % Accented display corrected
+\selectlanguage{spanish} % Default lang, useful for for multi lang switching 
+\usepackage{amsmath} % Math 1/3
+\usepackage{amssymb} % Math 2/3
+\usepackage{stmaryrd} % Math 3/3
+\usepackage{tikz} % Crating graphics programmatically
+\usepackage{pgfplots} % Extends tikz for 2D and 3D plots for data and math f 
+\pgfplotsset{compat=1.18} % ---
+\usepackage{circuitikz} % Extends tikz for electrical circuits
+\usepackage[dvipsnames, svgnames]{xcolor} % Coloring
+\usepackage{soul} % Text highlighting 
+\setul{0.5ex}{0.3ex} % ---
+\setlength{\parindent}{15pt} % Controls indentantion for the first line of paragraphs 
+\setlength{\parskip}{0.8\baselineskip plus 0.2\baselineskip minus 0.1\baselineskip} % Vertical spacing between paragraphs 
+\usepackage{geometry} % Layout
+\geometry{margin=3cm} % --- 
+\usepackage{titlesec} % Global section centering
+\titleformat{\section} % --
+  {\normalfont\Large\bfseries\centering}{\thesection}{1em}{} % --
+\usepackage{changepage} % Special paragraph
+\newenvironment{x}[3]{
+  \begin{adjustwidth}{#1}{0cm}
+  \setlength{\parindent}{0pt}
+  #2\fontsize{#3}{1pt}\selectfont 
+}{
+  \end{adjustwidth}
+}
+
+\title{Demostraciones}
+\date{20-10-2025}
+\author{Velázquez Ramírez Carlos Raúl}
+
+\begin{document}
+\pagenumbering{gobble}
+  \maketitle
+  \newpage
+  \pagenumbering{roman}
+
+
+\section*{Directa} 
+
+Una \textit{demostración directa} es una forma simple de demostración de teoremas o declaraciones que poseen la forma de una declaración condicional, es decir, 
+
+\[
+  p \to q
+\]
+
+De tal modo que sigue la tabla de verdad condicional, 
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+
+  $p$ & $q$ & $p \to q$ \\
+  V & V & V \\
+  V & F & F \\
+  F & V & V \\
+  F & F & V \\
+  
+\end{tabular}
+\end{center}
+
+Se ha de desechar las situaciones donde $P$ es falso, por omisión, haciendo enfasis a los primeros dos casos. 
+
+\textbf{Exampli gratia:} 
+
+\textit{Proposición:} Si $x$ es un enter impar, entonces $x^2$ también es impar. 
+
+\textit{Demostración:} Supongamos que $x$ es un entero impar. Entonces $x = 2a + 1$, donde $a \in \mathbb{Z}$, por definición un número impar. De esto modo, $x^2 = (2a + 1)^2$ = $4a^2 + 4a + 1 = 2(2a^2 + 2a) + 1$, resultando en $x^2 = 2b + 1$ donde $b = 2a^2 + 2a \in \mathbb{Z}$. Por lo tanto $x^2$ es impar por definición.
+
+\section*{Contradicción} 
+
+Contrario a demostraciones de forma condicional, el principio de una \textit{demostración por contradicción} yace en asumir que la declaración ha demostrar es falsa, desarrollar sobre esta asunción hasta encontrarse con sin sentidos, osease, contradicción, concluyendo que la declaración es verdadera.
+
+Las demostraciones por contradicción son universalmente válidas pues siguen la forma $\neg P \to (C \land \neg C)$, donde $C$ es la conclusión y $(C \land \neg C)$ su contradicción. De tal modo que para provaar la declaración $P$ se asume $\neg P$.
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+
+  $P$ & $C$ & $\neg P$ & $C \land \neg C$ & $\neg P \Rightarrow \neg (C \land \neg C)$\\
+  V & V & F & V & V \\
+  V & F & F & V & V \\
+  F & V & V & F & F \\
+  F & F & V & F & F \\
+  
+\end{tabular}
+\end{center}
+
+\textbf{Exampli gratia:} 
+
+\textit{Proposición:} Si $a, b \in \mathbb{Z}$, entonces $a^2 - 4b \neq 2$. 
+
+\textit{Demostración:} Supongamo que la declaración es \textit{falsa}. 
+
+Suponer que tal declaración condicional es falsa significa asumir que existen dos números $a$ y $b$ por los cuales $a,b \in \mathbb{Z}$ es verdadero, pero $a^2 - 4b \neq 2$ es falso. Es decir, existe $a,b \in \mathbb{Z} \to a^2 - 4b = 2$. 
+
+De esta ecuación conseguimos que $a^2 = 4b + 2 = 2(2b + 1)$, con $a^2$ siendo un números impar. Como $a^2$ es impar, expresemos $a = 2c$ para un valor $c$. Ahora sustituiremos $a^2 = 2c$, resultando en $(2c)^2 - 4b = 2$, tal que $4c^2 - 4b = 2$. Dividido entre $2$ tenemos $2c^2 - 2b = 1$. 
+
+Por lo tanto $1 = 2(c^2 - b)$, y porque $c^2 - b \in \mathbb{Z}$, concluimos que $1$ es impar, cayendo en contradicción. Por lo tanto, $a, b \in \mathbb{Z} \Rightarrow a^2 - 4b \neq 2$ es verdadera.
+
+\section*{Contrarecíproca} 
+
+Llamada también \textit{contrapositiva}, la \textit{demostración por contrarecíproca} consiste en usar una de las formas equivalentes de la condicional $P \to Q$, siendo $\neg Q \to \neg P$. Tal que, al ser equivalentes, provar una declaración condicional es igual a negar la conclusión, construir sobre esta asunción, llegar a la negación de la declaración incial, afirmando su veracidad.
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+
+  $P$ & $Q$ & $\neg P$ & $\neg Q$ & $P \to Q$ & $\neg Q \to \neg P$\\
+  V & V & F & F & V & V \\
+  V & F & F & V & F & F \\
+  F & V & V & F & V & V \\
+  F & F & V & V & V & V \\
+  
+\end{tabular}
+\end{center}
+
+\textbf{Exampli gratia:} 
+
+\textit{Proposición:} Supongamos $x \in \mathbb{Z}$, si $7x + 9$ es impar, entonces $x$ es impar. 
+
+\textit{Demostración:} Supongamos que $x$ no es impar. 
+
+De este modo, $x$ es par, tal que $x = 2a$ para un valor $a$. Entonces $7x + 9 = 7(2a) + 9 = 14a + 8 + 1 = 2(7a + 4) + 1$. Por lo tanto $7x + 9 = 2b + 1$, donde $b$ es igual a $7a + 4$. Consecuentemente $7x + 9$ es impar. Por lo tanto $7x + 9$ no es par.
+
+\section*{Inducción} 
+
+La \textit{demostración por inducción} es un método de demostración diseñado especialmente para probar declaración respecto a las propiedades de los números naturales ($\mathbb{N}$) de forma universal. 
+
+\[
+  \mathbb{N} = {1, 2, 3, 4, 5, \dots , n, n+1, \dots}
+\]
+
+Puesto que $\mathbb{N}$ es un conjunto infinito, la única forma de probar que una propiedad $P$ es verdadera para un número $n \in \mathbb{N}$, se ha de probar que tal propiedad es también verdadera para $n + 1$, tal que esta estructura pueda extrapolarse a cualquier número $\mathbb{N}$. 
+
+Es decir, $\forall n \in \mathbb{N} \, | \, P(n)$, primero probamos $P(0)$, y después probamos $\forall n \in \mathbb{N} \, | \, (P(n) \to P(n + 1))$. 
+
+\textbf{Exampli gratia:} 
+
+\textit{Proposición:} $\forall n \in \mathbb{N} \, , 2^0 + 2^1 + 2^2 + \dots + 2^n = 2^{n + 1} - 1$.
+
+\textit{Demostración:} Primero, probemos $P(0)$, resultando $2^0 = 2^1 - 1$. Demostramos $P(0)$. 
+
+\textit{Inducción:} asumamos $n$ un número $\mathbb{N}$ arbitrario. Asumamos que $P(n)$ es verdad, y después probemos que $P(n + 1)$ es también verdad. 
+
+\[
+  \text{Tenemos: } 2^0 + 2^1 + 2^2 + \dots + 2^n = 2^{n+1} - 1
+\]
+\[
+  \text{Demostremos: } 2^0 + 2^1 + \dots + 2^{n+1} = 2^{n + 2} - 1
+\]
+
+Tenemos que, 
+
+\[
+  (2^0 + 2^1 + \dots + 2^n) + 2^{n + 1} = (2^{n + 1} - 1) + 2^{n + 1}
+\]
+
+O en otra palabras, 
+
+\[
+  2^0 + 2^1 + \dots + 2^{n + 1} = 2 \cdot 2^{n + 1} -1 = 2^{n + 2} - 1
+\]
+
+\section*{Deducción} 
+
+Básicamente, la \textit{demostración por inducción} consiste en aplicar el razonamiento inductivo a la hora de probar que una declaración es verdadera. Cierto es que todas las formas de demostración son, esencialmente, razonamientos deductivos, la demostración por inducción se distingue tras hacer un uso explícito de las reglas de inferencia, e.g. leyes de Morgan, silogismos, etc. 
+
+\textbf{Exampli gratia:} 
+
+\begin{center} 
+  Si vive en el mar, entonces es un pez.\\
+  Si es un pez, entonces respira bajo el agua.\\
+  Si respira bajo el agua, entonces tiene branqueas.\\
+  \textit{Por lo tanto}, si vive en el mar, entonces tiene branqueas.
+\end{center}
+
+Tal que puede ser representado asi: 
+
+\[
+  P \to Q
+\]
+\[
+  Q \to R
+\]
+\[
+  R \to S
+\]
+
+Y por silogismo hipotético tenemos que, 
+
+\[
+  \therefore P \to S
+\]
+
+\section*{Contraejemplo} 
+
+Una \textit{demostración por contraejemplo} es una forma de demostrar la falsedad de una declaración universal presentando un ejemplo particular el cual contradiga la declaración misma. De modo que, para demostrar que una proposición es falsa es el equivalente de demostrar que su negación es verdadera. 
+
+\textbf{Exampli gratia:} 
+
+\textit{Proposición:} $\forall a, b \in \mathbb{R}$, $a^2 = b^2 \to a = b$.
+
+\textit{Contraejemplo:} Sea $a = 1$ y $b = -1$. Entonces $a^2 = 1^2$ y $b^2 = (-1)^2 = 1$. Tal que $a^2 = b^2$. Pero $a \neq b$ pues $1 \neq -1$. Por lo tanto, $\forall a, b \in \mathbb{R}$, $a^2 = b^2 \to a = b$ es falso.
+
+\end{document}

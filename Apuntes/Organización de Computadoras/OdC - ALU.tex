@@ -1,0 +1,259 @@
+\documentclass{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\selectlanguage{spanish}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.8\baselineskip plus 0.2\baselineskip minus 0.1\baselineskip}
+\usepackage{geometry}
+\geometry{margin=2cm}
+\usepackage{circuitikz}
+
+\ctikzset{
+  logic ports=ieee,
+  logic ports/scale=0.75,
+}
+
+\newcommand{\fulladder}[2]{
+  \begin{scope}[shift={(#1)}]
+    \draw (0,0) node[xor port](#2-XOR1){};
+    \draw (0,-2) node[and port](#2-AND1){};
+    \draw (4,-3) node[xor port](#2-XOR2){};
+    \draw (4,-5) node[and port](#2-AND2){};
+    \draw (#2-XOR1.in 1) -- ++(-1,0) coordinate(#2-x1) -- ++(-1,0);
+    \draw (#2-x1) to[short, *-] (#2-x1 |- #2-AND1.in 1) -- (#2-AND1.in 1);
+    \draw (#2-XOR1.in 2) -- ++(-0.5,0) coordinate(#2-x2) -- ++(-1.5,0);
+    \draw (#2-x2) to[short, *-] (#2-x2 |- #2-AND1.in 2) -- (#2-AND1.in 2);
+    \draw (#2-XOR1.out) -- ++(1,0) coordinate(#2-x3);
+    \draw (#2-x3) to[short] (#2-x3 |- #2-XOR2.in 1) -- (#2-XOR2.in 1);
+    \draw (#2-XOR2.in 2) -- ++(-6,0);
+    \draw (#2-AND2.in 2) -- ++(-1,0) coordinate(#2-x4);
+    \draw (#2-x4) to[short, -*] (#2-x4 |- #2-XOR2.in 2) -- (#2-XOR2.in 2);
+    \draw (#2-AND2.in 1) -- ++(-0.5,0) coordinate(#2-x5);
+    \draw (#2-x5) to[short, -*] (#2-x5 |- #2-XOR2.in 1) -- (#2-XOR2.in 1);
+    \draw (#2-AND2.out) -- ++(1,0) node[or port, anchor=in 1](#2-OR1){};
+    \draw (#2-AND2.out) -- (#2-OR1.in 1);
+    \draw (#2-AND1.out) -- ++(0,-4) -- ++(4,0) coordinate(#2-x6);
+    \draw (#2-x6) to[short] (#2-x6 |- #2-OR1.in 2) -- (#2-OR1.in 2);
+  \end{scope}
+}
+\newcommand{\decoder}[2]{
+  \begin{scope}[shift={(#1)}]
+    \draw (0,0) node[and port](#2-AND1){};
+    \draw (0,-2) node[and port](#2-AND2){};
+    \draw (0,-4) node[and port](#2-AND3){};
+    \draw (0,-6) node[and port](#2-AND4){};
+    \draw (#2-AND1.in 1) node[not port, scale=0.5, anchor=out](#2-NOT1){};
+    \draw (#2-AND1.in 1) -- (#2-NOT1.out);
+    \draw (#2-AND1.in 2) node[not port, scale=0.5, anchor=out](#2-NOT2){};
+    \draw (#2-AND1.in 2) -- (#2-NOT2.out);
+    \draw (#2-AND2.in 1) node[not port, scale=0.5, anchor=out](#2-NOT3){};
+    \draw (#2-AND2.in 1) -- (#2-NOT3.out);
+    \draw (#2-AND3.in 2) node[not port, scale=0.5, anchor=out](#2-NOT4){};
+    \draw (#2-AND3.in 2) -- (#2-NOT4.out);
+    \draw (#2-AND1.out) -- ++(0,0);
+    \draw (#2-AND2.out) -- ++(0,0);
+    \draw (#2-AND3.out) -- ++(0,0);
+    \draw (#2-AND4.out) -- ++(0,0);
+    \draw (#2-AND4.in 1) -- ++(-2,0) -- ++(0,7.5) coordinate(#2-x1);
+    \draw (#2-AND4.in 2) -- ++(-3,0) -- ++(0,7) coordinate(#2-x2);
+    \draw (#2-x1) to[short, -*] (#2-x1 |- #2-NOT1.in) -- (#2-NOT1.in);
+    \draw (#2-x1) to[short, -*] (#2-x1 |- #2-NOT3.in) -- (#2-NOT3.in);
+    \draw (#2-x1) to[short, -*] (#2-x1 |- #2-AND3.in 1) -- (#2-AND3.in 1);
+    \draw (#2-x2) to[short, -*] (#2-x2 |- #2-NOT2.in) -- (#2-NOT2.in);
+    \draw (#2-x2) to[short, -*] (#2-x2 |- #2-AND2.in 2) -- (#2-AND2.in 2);
+    \draw (#2-x2) to[short, -*] (#2-x2 |- #2-NOT4.in) -- (#2-NOT4.in);
+  \end{scope}
+}
+\title{Organización de Computadoras}
+\date{25-09-2025}
+\author{Velázquez Ramírez Carlos Raúl}
+
+\begin{document}
+\pagenumbering{gobble}
+  \maketitle
+  \newpage
+  \pagenumbering{roman}
+
+\section{Unidad Aritmético-Lógica (ALU or Aritmethic Logic Unit)}
+\subsection{Circuitos}
+
+Ya conocidos los siguientes circuitos y su funcionamiento, se es capaz de armar una ALU.
+
+Sumador completo ($+$).
+
+\begin{center}
+  \begin{circuitikz}
+    \fulladder{0,0}{FA}
+    \draw (FA-x1) -- ++(-1.5,0) node[left]{$A_i$};
+    \draw (FA-x2) -- ++(-1.5,0) node[left]{$B_i$};
+    \draw (FA-XOR2.out) node[right]{$S_i$};
+    \draw (FA-OR1.out) node[right]{$C_i$};
+  \end{circuitikz}
+  
+\end{center}
+
+AND ($A \land B$).
+
+\begin{center}
+  \begin{circuitikz}[scale=0.5]
+\draw (0,0) node[and port] (and1) {};
+\draw (and1.in 1) node[left] {$A$};
+\draw (and1.in 2) node[left] {$B$};
+\draw (and1.out) node[right] {$A \land B$};
+\end{circuitikz}
+\end{center}
+
+OR ($A \lor B$).
+
+\begin{center}
+  \begin{circuitikz}[scale=0.5]
+\draw (0,-2) node[or port] (or1) {};
+\draw (or1.in 1) node[left] {$A$};
+\draw (or1.in 2) node[left] {$B$};
+\draw (or1.out) node[right]  {$A \lor B$};
+\end{circuitikz}
+\end{center}
+
+NOT ($\neg B$).
+
+\begin{center}
+  \begin{circuitikz}[scale=0.5]
+\draw (0,-4) node[not port] (not1) {};
+\draw (not1.in) node[left] {$B$};
+\draw (not1.out) node[right] {$\neg B$};
+\end{circuitikz}
+\end{center}
+
+Decodificador.
+
+\begin{center}
+  \begin{circuitikz}
+    \decoder{0,0}{DC}
+    \draw (DC-AND1.out) node[right]{$D_0$};
+    \draw (DC-AND2.out) node[right]{$D_1$};
+    \draw (DC-AND3.out) node[right]{$D_2$};    
+    \draw (DC-AND4.out) node[right]{$D_3$};
+    \draw (DC-x1) node[above]{$F_0$};
+    \draw (DC-x2) node[above]{$F_1$};
+  \end{circuitikz}
+\end{center}
+
+ALU (1 bit): Podemos crear un circuito capaz de elegir, según la señal del decodificador, que operación lógica, o aritmética, podemos tener como salida al conectar en paralelo estos operadores, AND-ear sus salidas con las salidas del decodificador, y OR-ear las salidas AND.  
+
+\begin{center}
+  \begin{circuitikz}[scale=0.75]
+    \fulladder{0,0}{FA} 
+    \decoder{-7,-9}{DC}
+    \draw (DC-AND1.out) node[above]{$D_0$};
+    \draw (DC-AND2.out) node[above]{$D_1$};
+    \draw (DC-AND3.out) node[above]{$D_2$};    
+    \draw (DC-AND4.out) node[above]{$D_3$};
+    \draw (DC-x1) node[above]{$F_0$};
+    \draw (DC-x2) node[above]{$F_1$};
+    \draw (FA-x1) -- ++(-1,0) node[left]{$A_i$};
+    \draw (FA-x2) -- ++(-1.5,0) node[left]{$B_i$};
+    \draw (FA-XOR2.in 2) -- ++(-6,0) node[left]{$C_i-1$};
+    \draw (0,-8) node[and port](ANDa){};
+    \draw (0,-10) node[or port](ORa){};
+    \draw (0,-12) node[not port](NOTa){};
+    \draw (FA-x1) to[short, -*] (FA-x1 |- FA-AND1.in 1) -- (FA-AND1.in 1);
+    \draw (FA-XOR2.out) -- ++(1,0) node[and port, anchor=in 1](ANDb){};
+    \draw (FA-XOR2.out) -- (ANDb.in 1);
+    \draw (ANDa.out) -- ++(2,0) node[and port, anchor=in 1](ANDc){};
+    \draw (ANDa.out) -- (ANDc.in 1);
+    \draw (ANDa.out) -- ++(1,0) node[above]{$A \land B$};
+    \draw (ORa.out) -- ++(2,0) node[and port, anchor=in 1](ANDd){};
+    \draw (ORa.out) -- (ANDd.in 1);
+    \draw (ORa.out) -- ++(1,0) node[above]{$A \lor B$};
+    \draw (NOTa.out) -- ++(2,0) node[and port, anchor=in 1](ANDe){};
+    \draw (NOTa.out) -- (ANDe.in 1);
+    \draw (NOTa.out) -- ++(1,0) node[above]{$\neg A$};
+    \draw (DC-AND1.out) -- ++(8,0) coordinate(x1);
+    \draw (x1) to[short] (x1 |- ANDc.in 2) -- (ANDc.in 2);
+    \draw (DC-AND2.out) -- ++(8,0) coordinate(x2);
+    \draw (x2) to[short] (x2 |- ANDd.in 2) -- (ANDd.in 2);
+    \draw (DC-AND3.out) -- ++(8,0) coordinate(x3);
+    \draw (x3) to[short] (x3 |- ANDe.in 2) -- (ANDe.in 2);
+    \draw (FA-x1) to[short, -*] (FA-x1 |- ANDa.in 1) -- (ANDa.in 1);
+    \draw (FA-x1) to[short, -*] (FA-x1 |- ORa.in 1) -- (ORa.in 1);
+    \draw (FA-x1) to[short] (FA-x1 |- NOTa.in) -- (NOTa.in);
+    \draw (FA-x2) to[short, -*] (FA-x2 |- ANDa.in 2) -- (ANDa.in 2);
+    \draw (FA-x2) to[short] (FA-x2 |- ORa.in 2) -- (ORa.in 2);
+    \draw (FA-x2) to[short, -*] (FA-x2 |- FA-AND1.in 2) -- (FA-AND1.in 2);
+    \draw (DC-AND4.out) -- ++(11.5,0) coordinate(x2);
+    \draw (x2) to[short] (x2 |- ANDb.in 2) -- (ANDb.in 2);
+    \draw (9,-11) node[or port](ORm){};
+    \draw (9,-13) node[or port](ORn){};
+    \draw (9,-15) node[or port](ORo){};
+    \draw (ANDc.out) -- ++(1.5,0) coordinate(x4);
+    \draw (ANDd.out) -- ++(1.25,0) coordinate(x5);
+    \draw (ANDe.out) -- ++(1,0) coordinate(x6);
+    \draw (ORm.out) -- ++(0,-1) -- ++(-2.5,0) coordinate(x7);
+    \draw (ORn.out) -- ++(0,-1) -- ++(-2.5,0) coordinate(x8);
+    \draw (x4) to[short] (x4 |- ORm.in 1) -- (ORm.in 1);
+    \draw (x5) to[short] (x5 |- ORm.in 2) -- (ORm.in 2);
+    \draw (x6) to[short] (x6 |- ORn.in 2) -- (ORn.in 2);
+    \draw (x7) to[short] (x7 |- ORn.in 1) -- (ORn.in 1);
+    \draw (x8) to[short] (x8 |- ORo.in 1) -- (ORo.in 1);
+    \draw (ANDb.out) -- ++(1,0) -- ++(0,-6) -- ++(-2,0) coordinate(x9);
+    \draw (x9) to[short] (x9 |- ORo.in 2) -- (ORo.in 2);
+    \draw (ORo.out) -- ++(1,0) node[right]{$S_i$};
+    \draw (FA-OR1.out) -- ++(2,0) node[right]{$C_i$};
+  \end{circuitikz}
+\end{center}
+
+ALU (CI): Podemos pensar en la ALU como un circuito integrado.
+
+\begin{center}
+  \begin{circuitikz}[scale=0.75]
+    \draw [thick] (0,0) rectangle (4,4);
+    \draw (1,4) -- ++(0,1) node[above]{$B_i$};
+    \draw (2,4) -- ++(0,1) node[above]{$A_i$};
+    \draw (3,4) -- ++(0,1) node[above]{$C_i-1$};
+    \draw (0,1) -- ++(-1,0) node[left]{$F_0$};
+    \draw (0,3) -- ++(-1,0) node[left]{$F_1$};
+    \draw (4,1) -- ++(1,0) node[right]{$C_i$};
+    \draw (4,3) -- ++(1,0) node[right]{$S_i$};
+    \draw (2,2) node{ALU};
+  \end{circuitikz}
+\end{center}
+
+\subsection{Operaciones lógicas y aritméticas entre números binarios}
+
+Aritmética:
+
+$0000=C_i$\\ $0101=A_i=5$\\ $0010=B_i=2$\\ $0111=S_i=7$
+
+Lógicas (AND, OR, NOT):
+
+$0101=5$\\ $0010=2$\\ $0000=0$ 
+
+$0101=5$\\ $0010=2$\\ $0111=7$
+
+$0010=2$\\ $1101=13$ 
+
+Donde $C_i$ es el acarreo, $A_i, B_i$ son los operandos y $S_i$ el resultado. 
+
+Código de operaciones (decodificador de señales):
+\begin{center}
+\begin{tabular}{|c|c|l|}
+\hline
+  F1 & F0 & Operación \\
+\hline
+  0  & 0  & AND \\
+\hline
+  0  & 1  & OR \\
+\hline
+  1  & 0  & NOT \\
+\hline
+  1  & 1  & SUM \\
+\hline
+\end{tabular}
+\end{center}
+$D_0=1$, $D_1=D_2=D_3=0$ cuando $D_1=F_0=0$ y se ejecuta la operación AND.\\ $D_1=1$, $D_0=D_2=D_3=0$ cuando $F_1=0$, $F_0=1$ y se ejecuta la operación OR.\\ $D_2=1$, $D_0=D_1=D_3=0$ cuando $F_1=1$, $F_0=0$ y se ejecuta la operación NOT.\\ $D_3=1$, $D_0=D_1=D_2=0$ cuando $F_1=F_0=1$ y se ejecuta la suma aritmética.
+
+\end{document}
